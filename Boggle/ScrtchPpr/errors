@@ -1,0 +1,68 @@
+BoggleSolver.java:79: error: non-static variable this cannot be referenced from a static context
+        Node root = new Node(0, 0);
+                    ^
+BoggleSolver.java:80: error: bad operand types for binary operator '-'
+        for (int i = root.getCoords("row") - 1; i < root.getCoords("row") + 1;
+                                           ^
+  first type:  int[]
+  second type: int
+BoggleSolver.java:80: error: bad operand types for binary operator '+'
+        for (int i = root.getCoords("row") - 1; i < root.getCoords("row") + 1;
+                                                                          ^
+  first type:  int[]
+  second type: int
+BoggleSolver.java:82: error: bad operand types for binary operator '-'
+            for (int j = root.getCoords("col") - 1; j < root.getCoords("col") +
+                                               ^
+  first type:  int[]
+  second type: int
+BoggleSolver.java:82: error: bad operand types for binary operator '+'
+            for (int j = root.getCoords("col") - 1; j < root.getCoords("col") +
+                                                                              ^
+  first type:  int[]
+  second type: int
+BoggleSolver.java:85: error: cannot find symbol
+                    row = i;
+                    ^
+  symbol:   variable row
+  location: class BoggleSolver
+BoggleSolver.java:86: error: cannot find symbol
+                    col = j;
+                    ^
+  symbol:   variable col
+  location: class BoggleSolver
+BoggleSolver.java:87: error: cannot find symbol
+                    charValue = board.getLetter(i, j);
+                    ^
+  symbol:   variable charValue
+  location: class BoggleSolver
+BoggleSolver.java:88: error: non-static variable this cannot be referenced from a static context
+                    root.addChild(new Node(row, col, root, charValue));
+                                  ^
+BoggleSolver.java:88: error: cannot find symbol
+                    root.addChild(new Node(row, col, root, charValue));
+                                           ^
+  symbol:   variable row
+  location: class BoggleSolver
+BoggleSolver.java:88: error: cannot find symbol
+                    root.addChild(new Node(row, col, root, charValue));
+                                                ^
+  symbol:   variable col
+  location: class BoggleSolver
+BoggleSolver.java:88: error: cannot find symbol
+                    root.addChild(new Node(row, col, root, charValue));
+                                                           ^
+  symbol:   variable charValue
+  location: class BoggleSolver
+BoggleSolver.java:90: error: cannot find symbol
+                catch (ArrayOutOfBoundsException E) {} //do nothing for now
+                       ^
+  symbol:   class ArrayOutOfBoundsException
+  location: class BoggleSolver
+BoggleSolver.java:143: error: incompatible types: int cannot be converted to int[]
+                return coords[0];
+                             ^
+BoggleSolver.java:146: error: incompatible types: int cannot be converted to int[]
+                return coords[1];
+                             ^
+15 errors
