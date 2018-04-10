@@ -45,6 +45,10 @@ public class BoggBoard {
         else return '0';
     }
 
+    public Node getNode(int row, int col) {
+        return board[row][col];
+    }
+
     private void setRow(int row) {
         Random rand = new Random();
         int slotsSet = 0;
@@ -69,22 +73,17 @@ public class BoggBoard {
         }
     }
 
-    private void setChildren() {
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                setNodeChildren(i, j, board[i][j]);
-            }
-        }
-    }
-    private void setNodeChildren(int row, int col, Node node) {
-        for (int i = row - 1; i < row + 1; i++) {
-            for (int j = col - 1; j < col + 1; j++) {
+    private void setNodeChildren(int row, int col) {
+        int nodesSet = 0;
+        for (int i = row - 1; i <= row + 1; i++) {
+            for (int j = col - 1; j <= col + 1; j++) {
                 try {
-                    if (board[i][j] != node) {
-                        node.addChild(board[i][j]); 
+                    if(!board[row][col].getChildren().contains(board[row][col])
+                            && (i != row || j != col)) {
+                        board[row][col].addChild(board[i][j]);
                     }
                 }
-                catch(ArrayIndexOutOfBoundsException e) {} //do nothing
+                catch(ArrayIndexOutOfBoundsException e) {}
             }
         }
     }
@@ -96,11 +95,31 @@ public class BoggBoard {
     public static void main(String[] args) {
         BoggBoard board = new BoggBoard();
         board.print();
+        ArrayList<ArrayList<LinkedList<Node>>> allTrees = new ArrayList<>();
 
-        board.setChildren();
-        for (Node[] el : board.getBoard()) {
-            for (Node node : el) {
-                node.print();
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                board.setNodeChildren(i, j);
+            }
+        }
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 4; j++) {
+                allTrees.add(board.getNode(i,j).getTree());
+            }
+        }
+
+        for (Node[] row : board.getBoard()) {
+            for (Node el : row) {
+                el.print();
+            }
+        }
+
+        for (ArrayList el : allTrees) {
+            for (LinkedList path : el) {
+                for (Node node : path) {
+                    System.out.print(node.getChar());
+                }
             }
         }
     }

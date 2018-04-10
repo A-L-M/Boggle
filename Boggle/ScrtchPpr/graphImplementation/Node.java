@@ -3,9 +3,9 @@ import java.util.*;
 public class Node {
     //fields
     char letter;
-    Node parent;
-    ArrayList<Node> children;
-    ArrayList<Node> visitedChildren;
+    private Node parent;
+    private ArrayList<Node> children;
+    private ArrayList<Node> visitedChildren;
 
     //constructors
     public Node(char letter) {
@@ -22,6 +22,24 @@ public class Node {
     }
     
     //methods
+    
+    public ArrayList<Node> getChildren() {
+        return children;
+    }
+
+    public ArrayList<Node> getVisited() {
+        return visitedChildren;
+    }
+
+    public ArrayList<Node> getUnvisited() {
+        ArrayList<Node> unVisited = new ArrayList<>();
+        for (Node el : children) {
+            if (!vistedChildren.contains(el)) {
+                unVisited.add(el);
+            }
+        }
+    }
+
     public void setParent() {
         this.parent = parent;
     }
@@ -30,8 +48,8 @@ public class Node {
         children.add(child);
     }
 
-    public ArrayList<Node> getChildren() {
-        return children;
+    public void setParent(Node parent) {
+        this.parent = parent;
     }
 
     public char getChar() {
@@ -67,5 +85,43 @@ public class Node {
         for (Node el : children) {
             System.out.println(el);
         }
+    }
+
+    //trying just getting one path from a root
+    public Stack<Node> getPathAt(Node root, int index) {
+        boolean[] visitedChildren = new boolean[8];
+        Stack<Node> path = new Stack<>();
+
+        while (true) { //FIXME so it compiles
+            Node childToTry = root.getChildren().get(index);
+            if (!visitedChildren[index]) {
+                path.push(root);
+                path.push(childToTry);
+                visitedChildren[index] = true;
+            }
+        }
+    }
+    public ArrayList<LinkedList<Node>> getTree() {
+        Stack<Node> tempPath = new Stack<>();
+        ArrayList<LinkedList<Node>> tree = new ArrayList<>();
+        Stack<Node> endPath = new Stack<>();
+        Node current = this;
+        tempPath.push(this);
+        while(!tempPath.empty()) {
+            current = tempPath.peek();
+            if(!current.getUnvisitedChildren().isEmpty()) {
+                tempPath.push(current.getUnvisitedChildren().get(0));
+                current.addVisitedChild(tempPath.peek());
+            }
+            else {
+                endPath.push(tempPath.pop());
+            }
+            if (endPath.size() == 16) {
+                LinkedList<Node> temp = new LinkedList<>(endPath);
+                tree.add(temp);
+                endPath.removeAll(endPath);
+            }
+        }
+        return tree;
     }
 }
