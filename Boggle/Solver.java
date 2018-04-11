@@ -11,13 +11,6 @@
 import java.util.ArrayList;
 import java.util.Stack;
 
-/********************************
- *    KNOWN ISSUES:
- *
- * solve method is not properly
- * preventing duplicate entries
- * in validStrings
- ********************************/
 public class Solver {
     Board board;
 
