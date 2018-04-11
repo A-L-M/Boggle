@@ -5,7 +5,7 @@
  * a boggle board
  ************************/
 
-import java.util.*;//FIXME
+import java.util.ArrayList;
 
 public class Node {
 

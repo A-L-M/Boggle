@@ -8,16 +8,14 @@
  * boggle rules
  ******************************/
 
-import java.util.*;//FIXME
+import java.util.ArrayList;
+import java.util.Stack;
 
 public class Solver {
-    //testing whether i want validStrings to be persistent
-//    ArrayList<String> validStrings;
     Board board;
 
     public Solver(Board board) {
         this.board = board;
-        //validStrings = new ArrayList<>();
     }
 
     public ArrayList<String> solve(Node root) {
@@ -52,11 +50,10 @@ public class Solver {
                 str.deleteCharAt(str.length() - 1);
             }
         }
-        return validStrings;//FIXME
+        return validStrings;
     }
 
-    //FIXME temporarily making public
-    public boolean isValid(String word) {
+    private boolean isValid(String word) {
         boolean valid = false;
         if (board.dictionary.get(word) == null) {
             return valid;
@@ -88,6 +85,5 @@ public class Solver {
             index = 0;
             visited = new boolean[node.getChildren().size()];
         }
-
     }
 }

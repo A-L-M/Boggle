@@ -4,8 +4,12 @@
  * Represents a Boggle board
  *******************************/
 
-import java.util.*;//FIXME
-import java.io.*;//FIXME
+import java.util.Hashtable;
+import java.util.Scanner;
+import java.util.Random;
+import java.io.File;
+import java.io.IOException;
+import java.io.FileNotFoundException;
 
 public class Board {
     //each element represents one of 16 dice included in Boggle, each char in

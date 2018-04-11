@@ -4,8 +4,7 @@
  * test client for Boggle
  *************************/
 
-import java.util.*;//FIXME
-import java.io.*;//FIXME
+import java.io.File;
 
 public class Main {
     public static void main (String[] args) {
@@ -30,8 +29,6 @@ public class Main {
         }
         //testing solver constructor PASSED
         Solver solver = new Solver(board);
-        //testing solver.isValid() PASSED
-        System.out.println("found hello: " + solver.isValid("hello"));
         //testing solve on one row PASSSED
         for (String el : solver.solve(board.getNode(0,0))) {
             System.out.println(el + " ");
