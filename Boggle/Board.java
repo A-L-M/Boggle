@@ -66,7 +66,7 @@ public class Board {
 
         if (!diceUsed[toTry]) {
             diceUsed[toTry] = true;
-            return dice[toTry].charAt(rand.nextInt(6));
+            return Character.toUpperCase(dice[toTry].charAt(rand.nextInt(6)));
         }
         else return '0';//indicates failed to set
     }
@@ -88,10 +88,13 @@ public class Board {
 
     private Hashtable<String, Boolean> makeDict(File file) {
         try {
-            Scanner input = new Scanner(new File("words"));
+            Scanner input = new Scanner(new File("sowpods.txt"));
             Hashtable<String, Boolean> dict = new Hashtable<>();
             while (input.hasNextLine()) {
-                dict.put(input.nextLine(), new Boolean(true));
+                String next = input.nextLine();
+                if (next.length() >= 3) {
+                    dict.put(next, new Boolean(true));
+                }
             }
             return dict;
         }
