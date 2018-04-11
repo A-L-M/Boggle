@@ -88,8 +88,9 @@ public class Board {
 
     private Hashtable<String, Boolean> makeDict(File file) {
         try {
-            Scanner input = new Scanner(new File("sowpods.txt"));
-            Hashtable<String, Boolean> dict = new Hashtable<>();
+            Scanner input = new Scanner(new File("sowpodsTrimmed.txt"));
+            //size will be 267,294 using sowpodsTrimmed.txt
+            Hashtable<String, Boolean> dict = new Hashtable<>(267294,0.1f);
             while (input.hasNextLine()) {
                 String next = input.nextLine();
                 if (next.length() >= 3) {
