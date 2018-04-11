@@ -11,6 +11,13 @@
 import java.util.ArrayList;
 import java.util.Stack;
 
+/********************************
+ *    KNOWN ISSUES:
+ *
+ * solve method is not properly
+ * preventing duplicate entries
+ * in validStrings
+ ********************************/
 public class Solver {
     Board board;
 
@@ -21,7 +28,7 @@ public class Solver {
     public ArrayList<String> solve(Node root) {
         int rootRow = root.getRow();
         int rootCol = root.getCol();
-        ArrayList<String> validStrings = new ArrayList<>();
+        ArrayList<String> validStrings = new ArrayList<>(200);//roughly avg final size=200
         Stack<Tuple> path = new Stack<>();
         Tuple current;
         StringBuilder str = new StringBuilder();
@@ -37,7 +44,15 @@ public class Solver {
                 if (!contains(path, current.node.getChild(current.index))) {
                     path.push(new Tuple(current.node.getChild(current.index)));
                     str.append(path.peek().node.getChar());
+                    //Trying new way to check if validStrings contains str
+                    /*
                     if (!validStrings.contains(str.toString()) &&
+                            isValid(str.toString())) {
+                        String word = str.toString();
+                        validStrings.add(word);
+                    }
+                    */
+                    if (validStrings.indexOf(str.toString()) < 0 &&
                             isValid(str.toString())) {
                         String word = str.toString();
                         validStrings.add(word);
@@ -55,6 +70,16 @@ public class Solver {
 
     private boolean isValid(String word) {
         boolean valid = false;
+        //dealing with Q = Qu issue
+        StringBuilder str = new StringBuilder();
+        for (int i = 0; i < word.length(); i++) {
+            str.append(word.charAt(i));
+            if(word.charAt(i) == 'Q') {
+                str.append('U');
+            }
+        }
+        word = str.toString();
+
         if (board.dictionary.get(word) == null) {
             return valid;
         }
