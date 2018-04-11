@@ -13,4 +13,13 @@ s#k0
 s#j0
 s#l0
 !369;d
-[\012  grasp [\012   legendy 0.0\012   legendx 0.0\012   version 1\012   winflags 3\012   eheight 972\012   ewidth 960\012   height 972\012   width 960\012   wbp 0\012   initlayout 0\012   yoffs 1.4999999999999432\012   xoffs -1.4999999999999432\012   scale 1.0\012   args ""\012   otherflags 139\012   shallowjar 1\012   visflags 118423807\012  ]\012  directed 1\012 ]
+[\012  grasp [\012   legendy 0.0\012   legendx 0.0\012   version 1\012   winflags 3\012   eheight 972\012   ewidth 960\012   height 972\012   width 960\012   wbp 0\012   initlayout 0\012   yoffs 1.4999999999999432\012   xoffs -1.4999999999999432\012   scale 1.0\012   args ""\012   otherflags 139\012   shallowjar 1\012   visflags 118423807\012  ]\012  directed 1\012 ]!63;g
+%\011Board.java
+%\011Solver.java
+%\011Main.java
+%\011Node.java
+!63;f
+%\011Board.java
+%\011Solver.java
+%\011Main.java
+%\011Node.java
