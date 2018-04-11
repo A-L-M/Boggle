@@ -39,7 +39,7 @@ public class Solver {
                     str.append(path.peek().node.getChar());
 
                     if (validStrings.indexOf(str.toString()) < 0 &&
-                            isValid(str.toString())) {
+                            isValid(str)) {
                         String word = str.toString();
                         validStrings.add(word);
                     }
@@ -54,22 +54,39 @@ public class Solver {
         return validStrings;
     }
 
-    private boolean isValid(String word) {
+    private boolean isValid(StringBuilder word) {
         boolean valid = false;
         //dealing with Q = Qu issue
-        StringBuilder str = new StringBuilder();
-        for (int i = 0; i < word.length(); i++) {
-            str.append(word.charAt(i));
-            if(word.charAt(i) == 'Q') {
-                str.append('U');
+        /*********************************
+         * Cases:
+         * -Q exists and U has not been inserted, and Q is not at the end of the word
+         * -Q exists, U has already been inserted
+         * -Q exists, it's at the end of the string so index error if use + 1, need to append
+         *  FIRST SOLVE FINDING Q, THEN DECIDE IF FINDING WORDS LIKE QAT IS WORTH IT
+         ********************************/
+        if (word.indexOf("Q") > -1) {
+            int qIndex = word.indexOf("Q");
+            boolean isEnd = qIndex == word.length() - 1;
+            if (isEnd) {
+                word.append('U');
             }
+            else if (word.charAt(qIndex + 1) != 'U') {
+                word.insert(qIndex + 1, "U");
+            }
+            /*
+            boolean inBounds = (word.indexOf("Q") >=0 &&
+                    word.indexOf("Q") < word.length());
+            if (inBounds && word.charAt(word.indexOf("Q") + 1) != 'U') {
+                word.insert(word.indexOf("Q") + 1, "U");
+            }
+            */
         }
-        word = str.toString();
 
-        if (board.dictionary.get(word) == null) {
+        if (board.dictionary.get(word.toString()) == null) {
             return valid;
         }
-        else if (board.dictionary.get(word) == true) {
+        //FIXME next 4 lines replaced with just return true?
+        else if (board.dictionary.get(word.toString()) == true) {
             valid = true;
         }
         return valid;

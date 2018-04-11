@@ -27,6 +27,11 @@ public class Node {
         this.pos = pos;
     }
 
+    //FIXME debugging
+    public void setChar(char letter) {
+        this.letter = letter;
+    }
+
     public void addChild(Node child) {
         children.add(child);
     }

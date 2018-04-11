@@ -20,7 +20,6 @@ public class Board {
     public Hashtable<String, Boolean> dictionary; //FIXME tracking down null pointers
     private Node[][] board;
 
-    //TEST PASSED
     public Board(File dict) {
         this.dictionary = makeDict(dict);
         board = new Node[4][4];
@@ -36,6 +35,15 @@ public class Board {
             }
         }
     }
+
+    //FIXME Debugging method
+    public void insertWord (String word) {
+        for (int i = 0; i < 4; i++) {
+            board[0][i].setChar(word.charAt(i));
+        }
+        board[1][3].setChar(word.charAt(4));
+    }
+
     
     //getters
     public Node getNode(int row, int col) {
@@ -92,7 +100,7 @@ public class Board {
 
     private Hashtable<String, Boolean> makeDict(File file) {
         try {
-            Scanner input = new Scanner(new File("sowpodsTrimmed.txt"));
+            Scanner input = new Scanner(file);
             //size will be 267,294 using sowpodsTrimmed.txt
             Hashtable<String, Boolean> dict = new Hashtable<>(267294,0.1f);
             while (input.hasNextLine()) {
