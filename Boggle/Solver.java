@@ -39,8 +39,7 @@ public class Solver {
                 if (!contains(path, current.node.getChild(current.index))) {
                     path.push(new Tuple(current.node.getChild(current.index)));
                     str.append(path.peek().node.getChar());
-                    if (str.length() > 2 &&
-                            !validStrings.contains(str.toString()) &&
+                    if (!validStrings.contains(str.toString()) &&
                             isValid(str.toString())) {
                         String word = str.toString();
                         validStrings.add(word);
