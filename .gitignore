@@ -1,4 +1,6 @@
 *.class
+.*.*.swp
+*Test.java
 DemoGUI/
 *.zip
 errors
