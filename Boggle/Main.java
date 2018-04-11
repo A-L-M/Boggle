@@ -9,7 +9,7 @@ import java.io.File;
 public class Main {
     public static void main (String[] args) {
         //test constructor
-        Board board = new Board(new File("nursery-dict.txt"));
+        Board board = new Board(new File("./Dictionaries/yawl.txt.trim"));
         board.print();
         System.out.println();
         //test getNode() //PASSED
