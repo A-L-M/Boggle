@@ -38,6 +38,6 @@ public class TrimFile {
     }
     public static void main(String[] args) {
         TrimFile trim = new TrimFile();
-        trim.trim("sowpods", 3);
+        trim.trim(args[0], 3);
     }
 }
