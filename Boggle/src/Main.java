@@ -8,6 +8,8 @@ import java.io.File;
 
 public class Main {
     public static void main (String[] args) {
+        
+//    while(true) {//DEBUGGING //FIXME
         //test constructor
         Board board = new Board(new File("./Dictionaries/yawl.txt.trim"));
         board.print();
@@ -29,7 +31,7 @@ public class Main {
         }
         //testing solver constructor PASSED
         Solver solver = new Solver(board);
-        //testing solve on one row PASSSED
+        //testing solve on one row
         for (String el : solver.solve(board.getNode(0,0))) {
             System.out.println(el + " ");
         }
@@ -42,5 +44,6 @@ public class Main {
 
             }
         }
+//    }//DEBUGGING //FIXME
     }
 }

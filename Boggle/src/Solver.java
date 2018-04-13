@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Solver {
-    Board board;
+    private Board board;
 
     public Solver(Board board) {
         this.board = board;
@@ -57,6 +57,8 @@ public class Solver {
     private boolean isValid(StringBuilder word) {
         boolean valid = false;
         //dealing with Q = Qu issue
+        //FIXME
+        //to solve q issue: look at word.charAt(str.length() -1) only
         /*********************************
          * Cases:
          * -Q exists and U has not been inserted, and Q is not at the end of the word
@@ -83,10 +85,10 @@ public class Solver {
         }
 
         if (board.dictionary.get(word.toString()) == null) {
-            return valid;
+            return false;
         }
         //FIXME next 4 lines replaced with just return true?
-        else if (board.dictionary.get(word.toString()) == true) {
+        else if (board.dictionary.get(word.toString())) {
             valid = true;
         }
         return valid;
@@ -106,7 +108,7 @@ public class Solver {
     class Tuple {
         private Node node;
         private int index;
-        private boolean[] visited;
+        private boolean[] visited; //FIXME Contents read but never written to?
 
         private Tuple(Node node) {
             this.node = node;

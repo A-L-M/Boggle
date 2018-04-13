@@ -4,30 +4,31 @@
  * Represents a Boggle board
  *******************************/
 
-import java.util.Hashtable;
-import java.util.Scanner;
-import java.util.Random;
 import java.io.File;
-import java.io.IOException;
 import java.io.FileNotFoundException;
+import java.util.Hashtable;
+import java.util.Random;
+import java.util.Scanner;
 
-public class Board {
+class Board {
     //each element represents one of 16 dice included in Boggle, each char in
     //String element a face of the die
-    private String[] dice = {"aaeegn","elrtty","aoottw","abbjoo","ehrtvw",
+    private final String[] dice = {"aaeegn","elrtty","aoottw","abbjoo","ehrtvw",
             "cimotu","disstty","eiosst","delvry","achops","himnqu","eeinsu",
             "eeghnw","affkps","hlnnrz","deilrx"};
-    public Hashtable<String, Boolean> dictionary; //FIXME tracking down null pointers
-    private Node[][] board;
+    public Hashtable<String, Boolean> dictionary; //represents set of valid words
+    private Node[][] board; //represents physical boggle board with dice set
 
     public Board(File dict) {
         this.dictionary = makeDict(dict);
         board = new Node[4][4];
-        
+
+        //making sure any single String in dice only ges used once
         boolean[] diceUsed = new boolean[16];
         for (int i = 0; i < 4; i++) {
             setRow(i, diceUsed);
         }
+
         //add list of adjacent nodes to each node
         for (Node[] row : board) {
             for (Node node : row) {
@@ -37,12 +38,14 @@ public class Board {
     }
 
     //FIXME Debugging method
+    /*
     public void insertWord (String word) {
         for (int i = 0; i < 4; i++) {
             board[0][i].setChar(word.charAt(i));
         }
         board[1][3].setChar(word.charAt(4));
     }
+    */
 
     
     //getters
@@ -59,19 +62,24 @@ public class Board {
     }
 
     //constructor helpers
+
+    //fills one row of board[][] with instantiated Node objects
     private void setRow(int row, boolean[] diceUsed) {
         Random rand = new Random();
         int slotsSet = 0;
 
         while (slotsSet < 4) {
             char toTry = setSlot(diceUsed);
-            if (toTry != '0') {
+            if (toTry != Character.MIN_VALUE) {
                 board[row][slotsSet] = new Node(toTry, row, slotsSet);
                 slotsSet++;
             }
         }
     }
 
+    //randomly selects an element of String[] dice and then randomly selects one
+    //char in that element. Checks if the die it attempts to use has been used before and
+    //if so returns Character.MIN_VALUE
     private char setSlot(boolean[] diceUsed) {
         Random rand = new Random(); 
         int toTry = rand.nextInt(16);
@@ -80,9 +88,10 @@ public class Board {
             diceUsed[toTry] = true;
             return Character.toUpperCase(dice[toTry].charAt(rand.nextInt(6)));
         }
-        else return '0';//indicates failed to set
+        return Character.MIN_VALUE;//indicates failed to set
     }
 
+    //instantiates each nodes list of 'children' i.e. adjacent nodes
     private void setChildren(Node node) {
         int nodesSet= 0;
         int row = node.getRow();
@@ -98,15 +107,16 @@ public class Board {
         }
     }
 
+    //generates Hashtable of valid words from file w/ list of words
     private Hashtable<String, Boolean> makeDict(File file) {
         try {
             Scanner input = new Scanner(file);
-            //size will be 267,294 using sowpodsTrimmed.txt
-            Hashtable<String, Boolean> dict = new Hashtable<>(267294,0.1f);
+            //size will be 263,790 using yawl.txt.trim
+            Hashtable<String, Boolean> dict = new Hashtable<>(263789,0.1f);
             while (input.hasNextLine()) {
                 String next = input.nextLine();
                 if (next.length() >= 3) {
-                    dict.put(next, new Boolean(true));
+                    dict.put(next, Boolean.TRUE);
                 }
             }
             return dict;
@@ -116,7 +126,9 @@ public class Board {
             return null;
         }
     }
-    //debugging
+
+    //FIXME
+    //debugging method, not critical
     public void print() {
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {

@@ -11,27 +11,30 @@ public class Node {
 
     private char letter;
     private ArrayList<Node> children;//adjacent nodes
-    private int[] pos;
+    private int[] pos = {-1, -1}; //position in board[][]
 
+    //FIXME
+    //generate Node without setting pos for debugging
     public Node(char letter) {
         this.letter = letter;
         children = new ArrayList<>();
-        int[] pos = {-1, -1};
-        this.pos = pos;
     }
 
     public Node(char letter, int row, int col) {
         this.letter = letter;
         children = new ArrayList<>();
-        int[] pos = {row, col};
-        this.pos = pos;
+        pos[0] = row;
+        pos[1] = col;
     }
 
     //FIXME debugging
+    /*
     public void setChar(char letter) {
         this.letter = letter;
     }
+    */
 
+    //adds adjacent node to list of adjacent  nodes
     public void addChild(Node child) {
         children.add(child);
     }
@@ -51,7 +54,7 @@ public class Node {
         if (inBounds) {
             return children.get(index);
         }
-        else return new Node('$'); //FIXME 
+        else return null; //FIXME 
     }
 
     public int getRow() {

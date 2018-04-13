@@ -1,7 +1,12 @@
 *.class
 .*.*.swp
+.*.swp
 *Test.java
+*.iml
+*.idea
 DemoGUI/
 *.zip
+/notes
+/out
 errors
 output
