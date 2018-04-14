@@ -12,18 +12,19 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 class Board {
-    //each element represents one of 16 dice included in Boggle, each char in
-    //String element a face of the die
+    //each element of dice represents one of 16 dice included in Boggle
+    //each char in String element a face of the die
     private final String[] dice = {"aaeegn","elrtty","aoottw","abbjoo","ehrtvw",
             "cimotu","disstty","eiosst","delvry","achops","himnqu","eeinsu",
             "eeghnw","affkps","hlnnrz","deilrx"};
+    //represents the physical layout of the boggle board
     private final Node[][] board;
     private  Trie trieRoot;
 
     public Board(File dict) {
         trieRoot = makeTrie(dict);
 
-        boolean[] diceUsed = new boolean[16];
+        boolean[] diceUsed = new boolean[16];//make sure each 'die' is only used once
         board = new Node[4][4];
         for (int i = 0; i < board.length; i++) {
             setRow(i, diceUsed);
@@ -35,7 +36,7 @@ class Board {
             }
         }
     }
-    //FIXME debugg constructor 
+    /*FIXME debugging constructor 
     public Board(File dict, char[][] values) {
         trieRoot = makeTrie(dict);
         board = new Node[4][4];
@@ -51,6 +52,7 @@ class Board {
             }
         }
     }
+    */
 
     //getters
     public  Trie getRoot() {
@@ -61,7 +63,6 @@ class Board {
         return board[row][col];
     }
 
-    //FIXME
     public Node getNode(Node node) {
         for (Node[] row : board) {
             for (Node el : row) {
@@ -80,12 +81,11 @@ class Board {
         return new Trie(file);
     }
 
-
     private void setRow(int row, boolean[] diceUsed) {
         Random rand = new Random();
         int slotsSet = 0;
 
-        while (slotsSet < 4) {
+        while (slotsSet < 4) { //keep trying until 4 unique dice have been used
             char toTry = rollDie(diceUsed);
             if (toTry != Character.MIN_VALUE) {
                 board[row][slotsSet] = new Node(toTry, row, slotsSet);
