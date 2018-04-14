@@ -1,119 +1,79 @@
-/*********************************
- * Author: Alec Mills
- *
- * Attempts to find all possible
- * valid strings in a Boggle
- * board, ie are in dictionary
- * and can be reached following
- * boggle rules
- ******************************/
+/*****************************************
+ * Thought:
+ * rename Space -> Node
+ * TrieNode -> Trie
+ * doing so should make the graph nature
+ * of the boggle board more obvious
+ * Also:
+ * Comment your code numbnuts!
+ ****************************************/
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 public class Solver {
-    private Board board;
 
-    public Solver(Board board) {
-        this.board = board;
+    public ArrayList<String> foundWords = new ArrayList<>();
+    private boolean[][] visited = new boolean[4][4];
+    Stack<Tuple> path = new Stack<>();
+
+    public Solver() {
     }
 
-    public ArrayList<String> solve(Node root) {
-        int rootRow = root.getRow();
-        int rootCol = root.getCol();
-        ArrayList<String> validStrings = new ArrayList<>(200);//roughly avg final size=200
-        Stack<Tuple> path = new Stack<>();
-        Tuple current;
-        StringBuilder str = new StringBuilder();
+    class Tuple {
+        private Space space;
+        private TrieNode node;
+        private int index = 0;
+        private int row;
+        private int col;
 
-        path.push(new Tuple(root));
-        str.append(path.peek().node.getChar());
+        public Tuple(Space space, TrieNode node) {
+            this.space = space;
+            this.node = node;
+            this.row = space.getRow();
+            this.col = space.getCol();
+        }
+    }
+
+    //later make sure word is > 3 chars
+    public void solve(Space space, TrieNode root) {
+        Space child;
+        Tuple current = path.push(new Tuple(space, root.getChild(space.value)));
         while (!path.isEmpty()) {
             current = path.peek();
-            boolean inBounds = (current.index < current.visited.length);
-
-            if (inBounds) {
-                //check child node
-                if (!contains(path, current.node.getChild(current.index))) {
-                    path.push(new Tuple(current.node.getChild(current.index)));
-                    str.append(path.peek().node.getChar());
-
-                    if (validStrings.indexOf(str.toString()) < 0 &&
-                            isValid(str)) {
-                        String word = str.toString();
-                        validStrings.add(word);
-                    }
-                }
-                current.index += 1;
+            String word = current.node.getWord();
+            if (word != null && foundWords.indexOf(word) < 0) {
+                foundWords.add(word);
+            }
+            boolean inBounds = current.index >= 0 && 
+                    current.index < current.space.allNeighbors().size();
+            if (!inBounds) {
+                path.pop();
+                continue;
             }
             else {
-                path.pop();
-                str.deleteCharAt(str.length() - 1);
+                child = current.space.getNeighbor(current.index);
             }
+
+            if (!inStack(child)) {
+                if (!current.node.hasChild(child.value)) {
+                    path.pop();
+                    continue;
+                }
+
+                path.push(new Tuple(child, current.node.getChild(child.value)));
+
+            }
+
+            current.index++;
         }
-        return validStrings;
+
     }
 
-    private boolean isValid(StringBuilder word) {
-        boolean valid = false;
-        //dealing with Q = Qu issue
-        //FIXME
-        //to solve q issue: look at word.charAt(str.length() -1) only
-        /*********************************
-         * Cases:
-         * -Q exists and U has not been inserted, and Q is not at the end of the word
-         * -Q exists, U has already been inserted
-         * -Q exists, it's at the end of the string so index error if use + 1, need to append
-         *  FIRST SOLVE FINDING Q, THEN DECIDE IF FINDING WORDS LIKE QAT IS WORTH IT
-         ********************************/
-        if (word.indexOf("Q") > -1) {
-            int qIndex = word.indexOf("Q");
-            boolean isEnd = qIndex == word.length() - 1;
-            if (isEnd) {
-                word.append('U');
-            }
-            else if (word.charAt(qIndex + 1) != 'U') {
-                word.insert(qIndex + 1, "U");
-            }
-            /*
-            boolean inBounds = (word.indexOf("Q") >=0 &&
-                    word.indexOf("Q") < word.length());
-            if (inBounds && word.charAt(word.indexOf("Q") + 1) != 'U') {
-                word.insert(word.indexOf("Q") + 1, "U");
-            }
-            */
-        }
-
-        if (board.dictionary.get(word.toString()) == null) {
-            return false;
-        }
-        //FIXME next 4 lines replaced with just return true?
-        else if (board.dictionary.get(word.toString())) {
-            valid = true;
-        }
-        return valid;
-    }
-
-    private boolean contains(Stack<Tuple> stack, Node node) {
-        for (Tuple el : stack) {
-            if (el.node == node) {
-                return true;
-            }
+    private boolean inStack (Space space) {
+        for (Tuple el : path) {
+            if (el.space == space) return true;
         }
         return false;
-    }
-
-    //allow Stack elements pair a node and an index, without making the index
-    //persistent when a stack element is popped
-    class Tuple {
-        private Node node;
-        private int index;
-        private boolean[] visited; //FIXME Contents read but never written to?
-
-        private Tuple(Node node) {
-            this.node = node;
-            index = 0;
-            visited = new boolean[node.getChildren().size()];
-        }
     }
 }

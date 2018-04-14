@@ -3,13 +3,15 @@
  *
  ****************************/
 
-import java .util.*;//FIXME
-import java.io.*;//FIXME
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
 
 public class TrieNode {
-    private TrieNode[] children = new TrieNode[26];
+    private TrieNode[] children = new TrieNode[26];//one child per alphabet letter
     private char letter;
-    public String word = null;
+    public String word = null; //if word = null, no word is stored at that node.
 
     //root node constructor
     public TrieNode(File file) {
@@ -78,10 +80,4 @@ public class TrieNode {
     public String toString() {
         return "[" + letter + "]";
     }
-
-    /*FIXME
-    public static void main (String[] args) {
-        TrieNode root = new TrieNode();
-    }
-    */
 }

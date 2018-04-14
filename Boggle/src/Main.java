@@ -1,49 +1,28 @@
-/*************************
- * Author: Alec Mills
- *
- * test client for Boggle
- *************************/
-
 import java.io.File;
+import java.util.ArrayList;
 
 public class Main {
     public static void main (String[] args) {
-        
-//    while(true) {//DEBUGGING //FIXME
-        //test constructor
-        Board board = new Board(new File("./Dictionaries/yawl.txt.trim"));
+        File dict = new File("../Dictionaries/yawl.txt.trim");
+        Board board = new Board(dict);
         board.print();
-        System.out.println();
-        //test getNode() //PASSED
-        //System.out.println(board.getNode(3, 3)); 
-        //
-        //test getChildren() & setChildren(); PASSED
-        System.out.println("Printing each nodes children:");
+        Solver solver = new Solver();
+        TrieNode root = new TrieNode(dict);//make our Trie out of a given dictionary file
+        ArrayList<ArrayList<String>> solutions = new ArrayList<>();//words found on board
 
-        for (Node[] row : board.getBoard()) {
-            for (Node node : row) {
-                System.out.print(node.toString() + ":::");
-                for (Node child: node.getChildren()) {
-                    System.out.print(child.toString() + " ");
-                }
-                System.out.println();
+        System.out.println();//new line for formatting
+
+        System.out.println("Found words: ");
+
+        for (Space[] row : board.getBoard()) {
+            for (Space el : row) {
+                solver.solve(board.getSpace(el), root);
             }
         }
-        //testing solver constructor PASSED
-        Solver solver = new Solver(board);
-        //testing solve on one row
-        for (String el : solver.solve(board.getNode(0,0))) {
-            System.out.println(el + " ");
-        }
-        //testing solve on all nodes
-        for (Node[] row : board.getBoard()) {
-            for (Node node : row) {
-                for (String el : solver.solve(board.getNode(node.getRow(),node.getCol()))) {
-                    System.out.println(el + " ");
-                }
-
+        for(String el : solver.foundWords) {
+            if(el != null) {
+                System.out.println(el);
             }
         }
-//    }//DEBUGGING //FIXME
     }
-}
+}  
