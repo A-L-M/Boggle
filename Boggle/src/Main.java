@@ -7,16 +7,13 @@ public class Main {
         Board board = new Board(dict);
         board.print();
         Solver solver = new Solver();
-        TrieNode root = new TrieNode(dict);//make our Trie out of a given dictionary file
-        ArrayList<ArrayList<String>> solutions = new ArrayList<>();//words found on board
-
+        Trie root = new Trie(dict);//make our Trie out of a given dictionary file
         System.out.println();//new line for formatting
 
         System.out.println("Found words: ");
-
-        for (Space[] row : board.getBoard()) {
-            for (Space el : row) {
-                solver.solve(board.getSpace(el), root);
+        for (Node[] row : board.getBoard()) {
+            for (Node el : row) {
+                solver.solve(board.getNode(el), root);
             }
         }
         for(String el : solver.foundWords) {

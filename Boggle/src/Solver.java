@@ -21,47 +21,47 @@ public class Solver {
     }
 
     class Tuple {
-        private Space space;
-        private TrieNode node;
+        private Node node;
+        private Trie trie;
         private int index = 0;
         private int row;
         private int col;
 
-        public Tuple(Space space, TrieNode node) {
-            this.space = space;
+        public Tuple(Node node, Trie trie) {
             this.node = node;
-            this.row = space.getRow();
-            this.col = space.getCol();
+            this.trie = trie;
+            this.row = node.getRow();
+            this.col = node.getCol();
         }
     }
 
     //later make sure word is > 3 chars
-    public void solve(Space space, TrieNode root) {
-        Space child;
-        Tuple current = path.push(new Tuple(space, root.getChild(space.value)));
+    public void solve(Node node, Trie root) {
+        Node child;
+        Tuple current = path.push(new Tuple(node, root.getChild(node.value)));
         while (!path.isEmpty()) {
             current = path.peek();
-            String word = current.node.getWord();
+            String word = current.trie.getWord();
             if (word != null && foundWords.indexOf(word) < 0) {
                 foundWords.add(word);
             }
             boolean inBounds = current.index >= 0 && 
-                    current.index < current.space.allNeighbors().size();
+                    current.index < current.node.allNeighbors().size();
             if (!inBounds) {
                 path.pop();
                 continue;
             }
             else {
-                child = current.space.getNeighbor(current.index);
+                child = current.node.getNeighbor(current.index);
             }
 
             if (!inStack(child)) {
-                if (!current.node.hasChild(child.value)) {
+                if (!current.trie.hasChild(child.value)) {
                     path.pop();
                     continue;
                 }
 
-                path.push(new Tuple(child, current.node.getChild(child.value)));
+                path.push(new Tuple(child, current.trie.getChild(child.value)));
 
             }
 
@@ -70,9 +70,9 @@ public class Solver {
 
     }
 
-    private boolean inStack (Space space) {
+    private boolean inStack (Node node) {
         for (Tuple el : path) {
-            if (el.space == space) return true;
+            if (el.node == node) return true;
         }
         return false;
     }

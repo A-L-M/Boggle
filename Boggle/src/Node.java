@@ -1,23 +1,23 @@
 import java.util.ArrayList;
 
-class Space {
+class Node {
     public char value;
-    private ArrayList<Space> neighbors;
+    private ArrayList<Node> neighbors;
     private int row;
     private int col;
 
-    public Space(char value, int row, int col) {
+    public Node(char value, int row, int col) {
         this.row = row;
         this.col = col;
         this.value = value;
         neighbors = new ArrayList<>();            
     }
 
-    public void addNeighbor(Space neighbor) {
+    public void addNeighbor(Node neighbor) {
         neighbors.add(neighbor);
     } 
 
-    public Space getNeighbor(int index) {
+    public Node getNeighbor(int index) {
         boolean inBounds = index >= 0 && index < neighbors.size();
         if (inBounds) {
             return neighbors.get(index);
@@ -26,7 +26,7 @@ class Space {
 
     }
 
-    public ArrayList<Space> allNeighbors() {
+    public ArrayList<Node> allNeighbors() {
         return neighbors;
     }
 
