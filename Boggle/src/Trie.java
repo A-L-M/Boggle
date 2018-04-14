@@ -8,23 +8,23 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 
-public class TrieNode {
-    private TrieNode[] children = new TrieNode[26];//one child per alphabet letter
+public class Trie {
+    private Trie[] children = new Trie[26];//one child per alphabet letter
     private char letter;
     public String word = null; //if word = null, no word is stored at that node.
 
     //root node constructor
-    public TrieNode(File file) {
+    public Trie(File file) {
         gen(this, file);
     }
 
-    public TrieNode(char letter) {
+    public Trie(char letter) {
         this.letter = letter;
     }
 
     //constructor helpers
-    public TrieNode gen(TrieNode root, File file) {
-        TrieNode current = root;
+    public Trie gen(Trie root, File file) {
+        Trie current = root;
         try {
             Scanner input = new Scanner(file);
             while (input.hasNextLine()) {
@@ -46,14 +46,14 @@ public class TrieNode {
         return root;
     }
 
-    public TrieNode addChild(char key) {
-        TrieNode child = new TrieNode(key);
+    public Trie addChild(char key) {
+        Trie child = new Trie(key);
         int index = (int) key - 65;
         children[index] = child;
         return child;
     }
 
-    public TrieNode getChild(char key) {
+    public Trie getChild(char key) {
         return children[(int) key - 65];
     }
 
@@ -61,8 +61,8 @@ public class TrieNode {
         return word;
     }
 
-    public ArrayList<TrieNode> getChildrenList() {
-        ArrayList<TrieNode> childList = new ArrayList<>();
+    public ArrayList<Trie> getChildrenList() {
+        ArrayList<Trie> childList = new ArrayList<>();
         for (int i = 0; i < 26; i++) {
             if (children[i] != null) {
                 childList.add(children[i]);
