@@ -58,6 +58,10 @@ public class Solver {
             //all Tuple operations in our loop will need to be performed on the
             //top element of the stack
             current = path.peek();
+            //nodes with the value 'Q' should always be interpreted as a 'QU' sequence
+            if (current.node.value == 'Q' && current.trie.getLetter() != 'U') {
+                current.trie = current.trie.getChild('U');
+            }
             String word = current.trie.getWord();
             if (word != null && foundWords.indexOf(word) < 0) {
                 foundWords.add(word);//if not null, we know we have a valid word
@@ -80,8 +84,8 @@ public class Solver {
                 //if its not, but the corresponding trie has no children corresponding
                 //to the letter value, we know we can terminate that search path
                 if (!current.trie.hasChild(child.value)) {
-                    path.pop();
-                    continue;
+                    current.index++;
+                    continue;//avoid iterating index twice
                 }
 
                 //otherwise, move to that position on the board graph and the

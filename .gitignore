@@ -4,9 +4,10 @@
 *Test.java
 *.iml
 *.idea
-DemoGUI/
 *.zip
+DemoGUI/
 /notes
 /out
 errors
 output
+gitdiff

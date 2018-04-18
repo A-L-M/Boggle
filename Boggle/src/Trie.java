@@ -70,6 +70,10 @@ public class Trie {
         return children[(int) key - 65];//translate A-Z char -> 0-25 int value
     }
 
+    public char getLetter() {
+        return letter;
+    }
+
     public String getWord() {
         return word;
     }
