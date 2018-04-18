@@ -21,6 +21,15 @@ class Board {
     private final Node[][] board;
     private  Trie trieRoot;
 
+    /*************************
+     * new stuff double check
+     ************************/
+    public String playerName;
+    private final char[] wordBox = new char[16];
+    private int boxIndex = 0;
+
+    //public String[] wordsFound = new String[50];
+
     public Board(File dict) {
         trieRoot = makeTrie(dict);
 
