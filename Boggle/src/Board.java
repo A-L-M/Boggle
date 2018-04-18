@@ -24,6 +24,7 @@ class Board {
     private int boxIndex = 0;//tracks current index of wordBox as player enters chars
     public ArrayList<String> wordsFound = new ArrayList<>();//words user has submitted
 
+    //FIXME should remove file argument, file not necessary for board generation
     public Board(File dict) {
 
         boolean[] diceUsed = new boolean[16];//make sure each 'die' is only used once
