@@ -19,19 +19,13 @@ class Board {
             "eeghnw","affkps","hlnnrz","deilrx"};
     //represents the physical layout of the boggle board
     private final Node[][] board;
-    private  Trie trieRoot;
-
-    /*************************
-     * new stuff double check
-     ************************/
+    //player-related fields
     public String playerName;
-    private final char[] wordBox = new char[16];
-    private int boxIndex = 0;
-
-    //public String[] wordsFound = new String[50];
+    private final char[] wordBox = new char[16];//where players current guess is held
+    private int boxIndex = 0;//tracks current index of wordBox as player enters chars
+    public ArrayList<String> wordsFound = new ArrayList<>();//words user has submitted
 
     public Board(File dict) {
-        trieRoot = makeTrie(dict);
 
         boolean[] diceUsed = new boolean[16];//make sure each 'die' is only used once
         board = new Node[4][4];
@@ -45,51 +39,25 @@ class Board {
             }
         }
     }
-    /*FIXME debugging constructor 
-    public Board(File dict, char[][] values) {
-        trieRoot = makeTrie(dict);
-        board = new Node[4][4];
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                board[i][j] = new Node(values[i][j], i, j);
-            }
-        }
-
-        for (Node[] row : board) {
-            for (Node el : row) {
-                setNeighbors(el);
-            }
-        }
-    }
-    */
 
     //getters
-    public  Trie getRoot() {
-        return trieRoot;
-    }
-
     public Node getNode(int row, int col) {
         return board[row][col];
-    }
-
-    public Node getNode(Node node) {
-        for (Node[] row : board) {
-            for (Node el : row) {
-                if (el == node) return node;
-            }
-        }
-        return null;
     }
 
     public Node[][] getBoard() {
         return board;
     }
 
-    //constructor helper methods
-    private  Trie makeTrie(File file) {
-        return new Trie(file);
+    public char[] getWordBox() {
+        return wordBox;
     }
 
+    public ArrayList<String> getWordsFound() {
+        return wordsFound;
+    }
+
+    //constructor helper methods
     private void setRow(int row, boolean[] diceUsed) {
         Random rand = new Random();
         int slotsSet = 0;
@@ -127,18 +95,6 @@ class Board {
             return Character.toUpperCase(dice[dieToTry].charAt(rand.nextInt(6)));
         }
         else return Character.MIN_VALUE; //indicated failure to set
-    }
-
-    //FIXME debugging
-    public void print() {
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board.length; j++) {
-                System.out.print("[" + board[i][j].value + "]");
-                if (j % 3 == 0 && j != 0) {
-                    System.out.println();//new row
-                }
-            }
-        }
     }
 
 }
