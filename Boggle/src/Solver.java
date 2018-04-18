@@ -16,6 +16,9 @@
 
 import java.util.ArrayList;
 import java.util.Stack;
+//FIXME imports only necessary for main() test method
+import java.io.File;
+import java.io.FileNotFoundException;
 
 public class Solver {
 
@@ -107,5 +110,37 @@ public class Solver {
             if (el.node == node) return true;
         }
         return false;
+    }
+
+    //example usage & algorithm demonsration
+    public static void main (String[] args) {
+        try {
+            File file = new File(args[0]);
+            Board board = new Board(file);
+
+            for (Node[] row : board.getBoard()) {
+                for (Node el : row) {
+                    System.out.print("[" + el.value + "]");
+                    if (el.getCol() == 3) System.out.println();
+                }
+                System.out.println();
+            }
+            Trie root = new Trie(file);
+            Solver solver = new Solver();
+
+            for (Node[] row : board.getBoard()) {
+                for (Node el : row) {
+                    solver.solve(el, root);
+                }
+            }
+
+            for (String el : solver.foundWords) {
+                System.out.println(el);
+            }
+
+        }
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("please provide word-list file path as an argument");
+        }
     }
 }
