@@ -19,8 +19,7 @@ class Board {
             "eeghnw","affkps","hlnnrz","deilrx"};
     //represents the physical layout of the boggle board
     private final Node[][] board;
-    //player-related fields
-    public String playerName;
+    //mid-game user input and scoring related fields
     private final char[] wordBox = new char[16];//where players current guess is held
     private int boxIndex = 0;//tracks current index of wordBox as player enters chars
     public ArrayList<String> wordsFound = new ArrayList<>();//words user has submitted
@@ -55,6 +54,31 @@ class Board {
 
     public ArrayList<String> getWordsFound() {
         return wordsFound;
+    }
+
+    //user node-selection handling 
+    public void addLetter(int row, int column) {
+        //make sure the text entry field cannot be written too when it's "full"
+        boolean inBounds = boxIndex >= 0 && boxIndex < 16; 
+
+        if (inBounds) {
+            wordBox[boxIndex] = board[row][column].vlaue;
+            //iterate boxIndex so next guess goes in appropriate element of wordBox[]
+            boxIndex++;
+        }
+    }
+
+    //if user misclicks or otherwise wants to take back a node selection
+    public void removeLetter() {
+        wordBox[wordBox.length - 1] = Character.MIN_VALUE;
+        boxIndex--;
+    }
+
+    //reset wordBox
+    public void clearWordBox() {
+        for (char el : wordBox) {
+            el = Character.MIN_VALUE;
+        }
     }
 
     //constructor helper methods
