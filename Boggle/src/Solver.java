@@ -20,7 +20,7 @@ import java.util.Stack;
 public class Solver {
 
     public ArrayList<String> foundWords = new ArrayList<>();
-    //Stack tracks our position in both the board graph, an the trie
+    //Stack tracks our position in both the board graph, and the trie graph
     Stack<Tuple> path = new Stack<>();
 
     public Solver() {
@@ -28,7 +28,7 @@ public class Solver {
 
     //Tuple allows us to simultaneously track our position in the board graph
     //as well as the trie
-    class Tuple {
+    private class Tuple {
         private Node node;
         private Trie trie;
         private int index = 0;
