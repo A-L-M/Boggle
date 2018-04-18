@@ -438,29 +438,32 @@ public class BoggleFrame extends javax.swing.JFrame
    
    public class event implements ActionListener {
       public void actionPerformed(ActionEvent d) {
+         
          int count = 180;
+         
          timerLabel.setText("3:00");
          File dict = new File("yawl.txt");
          Board board = new Board(dict);
-         board.print();
-         
-         jButton1.setText(board.buttonMap(0,0));
-         jButton2.setText(board.buttonMap(0,1));
-         jButton3.setText(board.buttonMap(0,2));
-         jButton4.setText(board.buttonMap(0, 3));
-         jButton5.setText(board.buttonMap(1, 0));
-         jButton6.setText(board.buttonMap(1, 1));
-         jButton7.setText(board.buttonMap(1, 2));
-         jButton8.setText(board.buttonMap(1, 3));
-         jButton9.setText(board.buttonMap(2, 0));
-         jButton10.setText(board.buttonMap(2, 1));
-         jButton11.setText(board.buttonMap(2, 2));
-         jButton12.setText(board.buttonMap(2, 3));
-         jButton13.setText(board.buttonMap(3, 0));
-         jButton14.setText(board.buttonMap(3, 1));
-         jButton15.setText(board.buttonMap(3, 2));
-         jButton16.setText(board.buttonMap(3,3));
-         
+         if(gamesPlayed > 1){
+            gamesPlayed += 1;
+            jButton1.setText("" + buttonMap(board.getNode(0,0)));
+            jButton2.setText("" + buttonMap(board.getNode(0,1)));
+            jButton3.setText("" + buttonMap(board.getNode(0,2)));
+            jButton4.setText("" + buttonMap(board.getNode(0, 3)));
+            jButton5.setText("" + buttonMap(board.getNode(1, 0)));
+            jButton6.setText("" + buttonMap(board.getNode(1, 1)));
+            jButton7.setText("" + buttonMap(board.getNode(1, 2)));
+            jButton8.setText("" + buttonMap(board.getNode(1, 3)));
+            jButton9.setText("" + buttonMap(board.getNode(2, 0)));
+            jButton10.setText("" + buttonMap(board.getNode(2, 1)));
+            jButton11.setText("" + buttonMap(board.getNode(2, 2)));
+            jButton12.setText("" + buttonMap(board.getNode(2, 3)));
+            jButton13.setText("" + buttonMap(board.getNode(3, 0)));
+            jButton14.setText("" + buttonMap(board.getNode(3, 1)));
+            jButton15.setText("" + buttonMap(board.getNode(3, 2)));
+            jButton16.setText("" + buttonMap(board.getNode(3, 3)));
+         }
+            
          TimeClass tc = new TimeClass(count);
             timer = new Timer(1000, tc);
             timer.start();
@@ -518,14 +521,20 @@ public class BoggleFrame extends javax.swing.JFrame
          }
                else{timer.stop();}
       }
-    }   
+    } 
+    
+    private char buttonMap(Node node){
+      return node.value;
+    }  
     
     // Variables declaration 
     Timer timer;
+    int gamesPlayed = 0;
+    String playerName;
     private java.awt.Button button1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton11; 
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
