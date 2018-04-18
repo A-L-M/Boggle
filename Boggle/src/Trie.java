@@ -33,7 +33,7 @@ public class Trie {
     }
 
     //constructor helper
-    public Trie gen(Trie root, File file) {
+    private Trie gen(Trie root, File file) {
         Trie current = root;
         try {
             Scanner input = new Scanner(file);
@@ -41,7 +41,7 @@ public class Trie {
                 current = root;
                 String word = input.nextLine();
                 for(char el : word.toCharArray()) {
-                    int index = (int) el - 65;
+                    int index = (int) el - 65;//translate A-Z char -> 0-25 int value
                     if (current.hasChild(el)) {
                         current = current.getChild(el);
                     }

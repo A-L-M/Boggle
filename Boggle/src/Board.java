@@ -62,7 +62,7 @@ class Board {
         boolean inBounds = boxIndex >= 0 && boxIndex < 16; 
 
         if (inBounds) {
-            wordBox[boxIndex] = board[row][column].vlaue;
+            wordBox[boxIndex] = board[row][column].value;
             //iterate boxIndex so next guess goes in appropriate element of wordBox[]
             boxIndex++;
         }
