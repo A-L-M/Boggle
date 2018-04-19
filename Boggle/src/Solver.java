@@ -62,9 +62,20 @@ public class Solver {
             //top element of the stack
             current = path.peek();
             //nodes with the value 'Q' should always be interpreted as a 'QU' sequence
-            if (current.node.value == 'Q' && current.trie.getLetter() != 'U') {
-                current.trie = current.trie.getChild('U');
+            if (current.node.value == 'Q' && current.trie.getLetter() != 'U' &&
+                    current.trie.getChild != null) {
+                if (current.trie.getChild('U') != null) {
+                    current.trie = current.trie.getChild('U');
+                }
+                else {
+                    //covers rare case wherein we are at a Trie node
+                    //that represents a prefix that contains Q
+                    //but leads to a word that does not contain U
+                    current.index++; 
+                    continue;
+                }
             }
+            
             String word = current.trie.getWord();
             if (word != null && foundWords.indexOf(word) < 0) {
                 foundWords.add(word);//if not null, we know we have a valid word
@@ -114,9 +125,12 @@ public class Solver {
 
     //example usage & algorithm demonsration
     public static void main (String[] args) {
+        int count = 0;
+        while(count < 999) {//FIXME DEBUGGING
         try {
-            File file = new File(args[0]);
-            Board board = new Board(file);
+            //File file = new File(args[0]);
+            File file = new File("yawl.txt");
+            Board board = new Board();
 
             for (Node[] row : board.getBoard()) {
                 for (Node el : row) {
@@ -125,6 +139,7 @@ public class Solver {
                 }
                 System.out.println();
             }
+
             Trie root = new Trie(file);
             Solver solver = new Solver();
 
@@ -134,13 +149,16 @@ public class Solver {
                 }
             }
 
+            /*
             for (String el : solver.foundWords) {
                 System.out.println(el);
             }
+            */
 
         }
         catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("please provide word-list file path as an argument");
         }
     }
+    }//FIXME DEBUGGING while loop end
 }
