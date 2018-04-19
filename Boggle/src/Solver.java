@@ -46,6 +46,30 @@ public class Solver {
         }
     }
 
+    //returns score value of word based on word-length
+    public int scoreWord(String word) {
+        switch (word.length()) {
+            case 3:
+                return 1;
+            case 4: case 5:
+                return 3;
+            case 7:
+                return 5;
+            case 8:
+                return 11;
+            default: //very long words get more points
+                return 18;
+        }
+    }
+
+    public int scoreWordList(ArrayList<String> foundWords) {
+        int totalScore = 0;
+            for(String word : foundWords) {
+                totalScore += scoreWord(word);
+            }
+        return totalScore;
+    }
+
     //returns all legal-move valid strings beginning from one starting point
     public void solve(Node node, Trie root) {
         
@@ -62,8 +86,7 @@ public class Solver {
             //top element of the stack
             current = path.peek();
             //nodes with the value 'Q' should always be interpreted as a 'QU' sequence
-            if (current.node.value == 'Q' && current.trie.getLetter() != 'U' &&
-                    current.trie.getChild != null) {
+            if (current.node.value == 'Q' && current.trie.getLetter() != 'U') {
                 if (current.trie.getChild('U') != null) {
                     current.trie = current.trie.getChild('U');
                 }
@@ -72,7 +95,7 @@ public class Solver {
                     //that represents a prefix that contains Q
                     //but leads to a word that does not contain U
                     current.index++; 
-                    continue;
+                    continue; //avoid iterating index twice
                 }
             }
             
@@ -152,5 +175,6 @@ public class Solver {
             }
             */
 
+            System.out.println("Total score: " + solver.scoreWordList(solver.foundWords));
     }
 }
