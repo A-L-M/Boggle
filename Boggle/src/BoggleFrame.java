@@ -21,7 +21,15 @@ public class BoggleFrame extends javax.swing.JFrame
       dlm.addElement(inputField.getText());
       wordList.setModel(dlm);
       inputField.setText("");       
-   }                                
+   }
+   private void inputFieldMouseClicked(java.awt.event.MouseEvent evt){ //Clears inputField when you click it                                         
+        inputField.setText("");
+      }
+   private void inputFieldActionPerformed(java.awt.event.ActionEvent evt){ //What happens when you press enter(WordButton)                                                   
+         dlm.addElement(inputField.getText());
+         wordList.setModel(dlm);
+         inputField.setText("");
+      }                                   
    
    public class event implements ActionListener { // what happens when you press the start button
       public void actionPerformed(ActionEvent e) {
@@ -51,16 +59,7 @@ public class BoggleFrame extends javax.swing.JFrame
         timer = new Timer(1000, tc);
         timer.start();
         }
-      }
-      
-      private void inputFieldMouseClicked(java.awt.event.MouseEvent evt){                                            
-        inputField.setText("");
-      }
-      private void inputFieldActionPerformed(java.awt.event.ActionEvent evt){                                                    
-         dlm.addElement(inputField.getText());
-         wordList.setModel(dlm);
-         inputField.setText("");
-      }                      
+      }                   
             
       public class TimeClass implements ActionListener { //updates our timer on the gui.
          int counter;
@@ -111,7 +110,12 @@ public class BoggleFrame extends javax.swing.JFrame
                   }
               }
          }
-               else{timer.stop();}
+               else{
+                  timer.stop();
+                  ScorePage score = new ScorePage("devon");
+                  score.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                  score.setVisible(true);
+               }
       }
    }
     
