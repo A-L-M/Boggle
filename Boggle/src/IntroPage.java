@@ -44,6 +44,7 @@ public class IntroPage extends javax.swing.JFrame
             }
         });
 
+        rulesTextArea.setEditable(false); 
         rulesTextArea.setColumns(20);
         rulesTextArea.setRows(5);
         rulesTextArea.setText("You have three minutes (shown by the countdown timer)\nto find as many words as they can in the grid \naccording to the following conditions:\n\n- The letters must be adjoining in a chain. Adjacent\n  vertical, horizontal, or diaganol.\n\n- Words must be at least 3 letters long.\n\n- No letter cube may be used more than once in a \n  single word");
