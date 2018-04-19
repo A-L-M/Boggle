@@ -8,32 +8,116 @@ public class BoggleFrame extends javax.swing.JFrame
 {
     private Board board;
     
-    public BoggleFrame(Board board)
+    public BoggleFrame(Board board, String name) //pass it our Char array and the players name
     {
          
         this.board = board;
-        initComponents();
-        diceLabel1.setText(board.getNode(0, 0) + "");
+        this.name = name;
+        initComponents(); // builds the gui, see below   
+   }
+    
+   DefaultListModel dlm = new DefaultListModel();
+   private void wordButtonActionPerformed(java.awt.event.ActionEvent evt){   // What happens when you press the word button                                            
+      dlm.addElement(inputField.getText());
+      wordList.setModel(dlm);
+      inputField.setText("");       
+   }                                
+   
+   public class event implements ActionListener { // what happens when you press the start button
+      public void actionPerformed(ActionEvent e) {
+         
+         // Populates our board.
+        diceLabel1.setText("" + board.getNode(0, 0));
         diceLabel2.setText("" + board.getNode(0,1));
-        diceLabel3.setText("" + buttonMap(board.getNode(0,2)));
-        diceLabel4.setText("" + buttonMap(board.getNode(0, 3)));
-        diceLabel5.setText("" + buttonMap(board.getNode(1, 0)));
-        diceLabel6.setText("" + buttonMap(board.getNode(1, 1)));
-        diceLabel7.setText("" + buttonMap(board.getNode(1, 2)));
-        diceLabel8.setText("" + buttonMap(board.getNode(1, 3)));
-        diceLabel9.setText("" + buttonMap(board.getNode(2, 0)));
-        diceLabel10.setText("" + buttonMap(board.getNode(2, 1)));
-        diceLabel11.setText("" + buttonMap(board.getNode(2, 2)));
-        diceLabel12.setText("" + buttonMap(board.getNode(2, 3)));
-        diceLabel13.setText("" + buttonMap(board.getNode(3, 0)));
-        diceLabel14.setText("" + buttonMap(board.getNode(3, 1)));
-        diceLabel15.setText("" + buttonMap(board.getNode(3, 2)));
-        diceLabel16.setText("" + buttonMap(board.getNode(3, 3)));
-    }
+        diceLabel3.setText("" + board.getNode(0,2));
+        diceLabel4.setText("" + board.getNode(0, 3));
+        diceLabel5.setText("" + board.getNode(1, 0));
+        diceLabel6.setText("" + board.getNode(1, 1));
+        diceLabel7.setText("" + board.getNode(1, 2));
+        diceLabel8.setText("" + board.getNode(1, 3));
+        diceLabel9.setText("" + board.getNode(2, 0));
+        diceLabel10.setText("" + board.getNode(2, 1));
+        diceLabel11.setText("" + board.getNode(2, 2));
+        diceLabel12.setText("" + board.getNode(2, 3));
+        diceLabel13.setText("" + board.getNode(3, 0));
+        diceLabel14.setText("" + board.getNode(3, 1));
+        diceLabel15.setText("" + board.getNode(3, 2));
+        diceLabel16.setText("" + board.getNode(3, 3));
+        
+        //builds our timer
+        int count = 180;   
+        timerLabel.setText("3:00");
+        TimeClass tc = new TimeClass(count);
+        timer = new Timer(1000, tc);
+        timer.start();
+        }
+      }
+      
+      private void inputFieldMouseClicked(java.awt.event.MouseEvent evt){                                            
+        inputField.setText("");
+      }
+      private void inputFieldActionPerformed(java.awt.event.ActionEvent evt){                                                    
+         dlm.addElement(inputField.getText());
+         wordList.setModel(dlm);
+         inputField.setText("");
+      }                      
+            
+      public class TimeClass implements ActionListener { //updates our timer on the gui.
+         int counter;
+         int minutes;
+         int seconds;
+      
+         public TimeClass(int counter){
+            this.counter = counter;
+         }
+      
+         public void actionPerformed(ActionEvent tc) {
+            if(counter >= 1){
+               counter--;
+             
+               if(counter > 120){
+                  minutes = 2;
+                  seconds = counter - 120;
+                  if(seconds < 10){
+                     timerLabel.setText(minutes + ":0" + seconds);
+                  }
+                  else{
+                     timerLabel.setText(minutes + ":" + seconds);
+                  }
+               }
+               else if(counter == 120){
+                  timerLabel.setText("2:00");
+               }
+               else if(counter > 60){
+                  minutes = 1;
+                  seconds = counter - 60;
+                  if(seconds < 10){
+                     timerLabel.setText(minutes + ":0" + seconds);
+                  }
+                  else{
+                     timerLabel.setText(minutes + ":" + seconds);
+                  }
+               }
+               else if(counter == 60){
+                  timerLabel.setText("1:00");
+               }
+               else if(counter < 60){
+                  seconds = counter;
+                  if(seconds < 10){
+                     timerLabel.setText("0" + seconds);
+                  }
+                  else{
+                     timerLabel.setText("" + seconds);
+                  }
+              }
+         }
+               else{timer.stop();}
+      }
+   }
     
     
     
-    private void initComponents()
+    private void initComponents() // Mostly generated code by netbeans GUI creator, some edits done to naming, buttons, etc...
     {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -51,7 +135,7 @@ public class BoggleFrame extends javax.swing.JFrame
         titleLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        wordsFoundList = new javax.swing.JList<>();
+        wordList = new javax.swing.JList<>();
         welcomeLabel = new javax.swing.JLabel();
         diceLabel1 = new javax.swing.JLabel();
         diceLabel2 = new javax.swing.JLabel();
@@ -102,23 +186,31 @@ public class BoggleFrame extends javax.swing.JFrame
 
         wordButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         wordButton.setText("WORD!");
+        wordButton.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                wordButtonActionPerformed(evt);
+            }
+        });
 
 
         startButton.setText("Start");
+        startButton.addActionListener(e);
 
         titleLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         titleLabel.setText("BOGGLE");
 
-        wordsFoundList.setModel(new javax.swing.AbstractListModel<String>()
+        wordList.setModel(new javax.swing.AbstractListModel<String>()
             {
-                String[] strings = {""};
-                public int getSize() { return strings.length; }
-                public String getElementAt(int i) { return strings[i]; }
+                String[] string = { };
+                public int getSize() { return string.length; }
+                public String getElementAt(int i) { return string[i]; }
             });
-            jScrollPane1.setViewportView(wordsFoundList);
+            jScrollPane1.setViewportView(wordList);
 
             welcomeLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-            welcomeLabel.setText("Welcome \"Player\"");
+            welcomeLabel.setText("Welcome " + name);
 
             diceLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
             diceLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -264,6 +356,14 @@ public class BoggleFrame extends javax.swing.JFrame
             {
                 public void actionPerformed(java.awt.event.ActionEvent evt)
                 {
+                  inputFieldActionPerformed(evt);
+                }
+            });
+            inputField.addMouseListener(new java.awt.event.MouseAdapter()
+            {
+                public void mouseClicked(java.awt.event.MouseEvent evt)
+                {
+                    inputFieldMouseClicked(evt);
                 }
             });
 
@@ -339,103 +439,15 @@ public class BoggleFrame extends javax.swing.JFrame
             );
 
             pack();
-        }// </editor-fold>                                  
-   
-   public class event implements ActionListener {
-      public void actionPerformed(ActionEvent d) {
-         
-         int count = 180;
-         
-         timerLabel.setText("3:00");
-         File dict = new File("yawl.txt");
-         Board board = new Board(dict);
-         if(gamesPlayed > 1){
-            gamesPlayed += 1;
-            diceLabel1.setText("" + board.getNode(0,0));
-            diceLabel2.setText("" + board.getNode(0,1));
-            diceLabel3.setText("" + buttonMap(board.getNode(0,2)));
-            diceLabel4.setText("" + buttonMap(board.getNode(0, 3)));
-            diceLabel5.setText("" + buttonMap(board.getNode(1, 0)));
-            diceLabel6.setText("" + buttonMap(board.getNode(1, 1)));
-            diceLabel7.setText("" + buttonMap(board.getNode(1, 2)));
-            diceLabel8.setText("" + buttonMap(board.getNode(1, 3)));
-            diceLabel9.setText("" + buttonMap(board.getNode(2, 0)));
-            diceLabel10.setText("" + buttonMap(board.getNode(2, 1)));
-            diceLabel11.setText("" + buttonMap(board.getNode(2, 2)));
-            diceLabel12.setText("" + buttonMap(board.getNode(2, 3)));
-            diceLabel13.setText("" + buttonMap(board.getNode(3, 0)));
-            diceLabel14.setText("" + buttonMap(board.getNode(3, 1)));
-            diceLabel15.setText("" + buttonMap(board.getNode(3, 2)));
-            diceLabel16.setText("" + buttonMap(board.getNode(3, 3)));
-         }
-            
-         TimeClass tc = new TimeClass(count);
-            timer = new Timer(1000, tc);
-            timer.start();
-         }
-      }
-            
-      public class TimeClass implements ActionListener {
-         int counter;
-         int minutes;
-         int seconds;
-      
-         public TimeClass(int counter){
-            this.counter = counter;
-         }
-      
-         public void actionPerformed(ActionEvent tc) {
-            if(counter >= 1){
-               counter--;
-             
-               if(counter > 120){
-                  minutes = 2;
-                  seconds = counter - 120;
-                  if(seconds < 10){
-                     timerLabel.setText(minutes + ":0" + seconds);
-                  }
-                  else{
-                     timerLabel.setText(minutes + ":" + seconds);
-                  }
-               }
-               else if(counter == 120){
-                  timerLabel.setText("2:00");
-               }
-               else if(counter > 60){
-                  minutes = 1;
-                  seconds = counter - 60;
-                  if(seconds < 10){
-                     timerLabel.setText(minutes + ":0" + seconds);
-                  }
-                  else{
-                     timerLabel.setText(minutes + ":" + seconds);
-                  }
-               }
-               else if(counter == 60){
-                  timerLabel.setText("1:00");
-               }
-               else if(counter < 60){
-                  seconds = counter;
-                  if(seconds < 10){
-                     timerLabel.setText("0" + seconds);
-                  }
-                  else{
-                     timerLabel.setText("" + seconds);
-                  }
-              }
-         }
-               else{timer.stop();}
-      }
-    } 
-    
-    private char buttonMap(Node node){
-      return node.value;
-    }  
+        }// </editor-fold>  
     
     // Variables declaration 
     Timer timer;
-    int gamesPlayed = 0;
-    String playerName;
+    private int i;
+    String name;
+    int count = 180;
+    event e = new event();
+    String[] wordsFound = new String[30]; 
     private javax.swing.JButton startButton;
     private java.awt.Button button1;
     private javax.swing.JLabel diceLabel1;
@@ -474,15 +486,15 @@ public class BoggleFrame extends javax.swing.JFrame
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel welcomeLabel;
     private javax.swing.JButton wordButton;
-    private javax.swing.JList<String> wordsFoundList;
+    private javax.swing.JList<String> wordList;
     // End of variables declaration        
 
 
-   public static void main(String args[]){
-        File dict = new File("yawl.txt");
-        Board board = new Board(dict);
-        BoggleFrame game = new BoggleFrame(board);
-        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setVisible(true);
-   }
+//public static void main(String args[]){
+  //      File dict = new File("yawl.txt");
+    //    Board board = new Board(dict);
+      //  BoggleFrame game = new BoggleFrame(board, name);
+        //game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //game.setVisible(true);
+   //}
 }
