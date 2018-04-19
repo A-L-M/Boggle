@@ -125,9 +125,6 @@ public class Solver {
 
     //example usage & algorithm demonsration
     public static void main (String[] args) {
-        int count = 0;
-        while(count < 999) {//FIXME DEBUGGING
-        try {
             //File file = new File(args[0]);
             File file = new File("yawl.txt");
             Board board = new Board();
@@ -155,10 +152,5 @@ public class Solver {
             }
             */
 
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("please provide word-list file path as an argument");
-        }
     }
-    }//FIXME DEBUGGING while loop end
 }
