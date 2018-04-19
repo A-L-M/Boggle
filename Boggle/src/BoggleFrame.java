@@ -122,12 +122,7 @@ public class BoggleFrame extends javax.swing.JFrame
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jScrollBar1 = new javax.swing.JScrollBar();
-        textField1 = new java.awt.TextField();
         jEditorPane1 = new javax.swing.JEditorPane();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jList2 = new javax.swing.JList<>();
-        button1 = new java.awt.Button();
         jPanel1 = new javax.swing.JPanel();
         wordButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
@@ -169,18 +164,6 @@ public class BoggleFrame extends javax.swing.JFrame
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
-        textField1.setText("textField1");
-        jRadioButton1.setText("jRadioButton1");
-
-        jList2.setModel(new javax.swing.AbstractListModel<String>()
-        {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(jList2);
-
-        button1.setLabel("button1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -469,19 +452,15 @@ public class BoggleFrame extends javax.swing.JFrame
     private javax.swing.JTextField inputField;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JEditorPane jEditorPane1;
-    private javax.swing.JList<String> jList2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private java.awt.TextField textField1;
     private javax.swing.JLabel timerLabel;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JLabel welcomeLabel;
