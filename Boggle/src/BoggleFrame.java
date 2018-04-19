@@ -488,13 +488,4 @@ public class BoggleFrame extends javax.swing.JFrame
     private javax.swing.JButton wordButton;
     private javax.swing.JList<String> wordList;
     // End of variables declaration        
-
-
-//public static void main(String args[]){
-  //      File dict = new File("yawl.txt");
-    //    Board board = new Board(dict);
-      //  BoggleFrame game = new BoggleFrame(board, name);
-        //game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //game.setVisible(true);
-   //}
 }
