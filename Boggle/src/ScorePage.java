@@ -13,7 +13,7 @@ public class ScorePage extends javax.swing.JFrame
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents()
+    private void initComponents() //Generated code for the gui
     {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -133,15 +133,14 @@ public class ScorePage extends javax.swing.JFrame
         pack();
     }// </editor-fold>                        
 
-    private void playButtonActionPerformed(java.awt.event.ActionEvent evt)                                           {                                               
+    private void playButtonActionPerformed(java.awt.event.ActionEvent evt){ //What happens you when press Play                                               
        newGame();
     }                                          
 
-    private void playerInputActionPerformed(java.awt.event.ActionEvent evt)                                            
-    {                                                
+    private void playerInputActionPerformed(java.awt.event.ActionEvent evt){ //What happens you press enter                                                
        newGame();
     }  
-    public void newGame(){
+    public void newGame(){ //Starts a new game
        name = playerInput.getText();
        Board board1 = new Board();
        BoggleFrame newGame = new BoggleFrame(board1, name);
