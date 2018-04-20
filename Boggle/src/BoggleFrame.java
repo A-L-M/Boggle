@@ -5,9 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.*;
 
-public class BoggleFrame extends javax.swing.JFrame
-{
-    private Board board;
+public class BoggleFrame extends javax.swing.JFrame {
     
     public BoggleFrame(Board board, String name){ //pass it our Char array and the players name
         this.board = board;
@@ -428,13 +426,14 @@ public class BoggleFrame extends javax.swing.JFrame
         }// </editor-fold>  
     
     // Variables declaration 
-    Timer timer;
+    private Timer timer;
     private int i;
     String name;
-    int count;
-    event e = new event();
+    private int count;
+    private event e = new event();
     DefaultListModel dlm = new DefaultListModel();
     ArrayList<String> myList = new ArrayList<String>(50);
+    private Board board;
     private javax.swing.JButton startButton;
     private java.awt.Button button1;
     private javax.swing.JLabel diceLabel1;
