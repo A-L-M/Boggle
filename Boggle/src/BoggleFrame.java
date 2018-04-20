@@ -58,7 +58,7 @@ public class BoggleFrame extends javax.swing.JFrame
         diceLabel16.setText("" + board.getNode(3, 3));
         
         //builds our timer
-        int count = 5;   
+        int count = 180;   
         timerLabel.setText("3:00");
         TimeClass tc = new TimeClass(count);
         timer = new Timer(1000, tc);
