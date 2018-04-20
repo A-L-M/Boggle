@@ -1,14 +1,9 @@
 import javax.swing.JFrame;
 
-public class IntroPage extends javax.swing.JFrame
-{
-    public IntroPage(Board board)
-    {
+public class IntroPage extends javax.swing.JFrame{    
+    public IntroPage(Board board){
       this.board = board;
       initComponents();
-    }
-    public IntroPage(){
-    
     }
 
     @SuppressWarnings("unchecked")
@@ -24,7 +19,7 @@ public class IntroPage extends javax.swing.JFrame
         rulesLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         playerNameField.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         playerNameField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -120,27 +115,27 @@ public class IntroPage extends javax.swing.JFrame
         );
 
         pack();
-    }// </editor-fold>                        
+    }// </editor-fold>
+                        
 
-    private void playButtonActionPerformed(java.awt.event.ActionEvent evt)                                           
-    {    
-        playerName = playerNameField.getText();                                           
-        BoggleFrame game = new BoggleFrame(board, playerName);
-        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setVisible(true);   
-    }
+    public void playButtonActionPerformed(java.awt.event.ActionEvent evt){    
+        startGame();  
+    }   
     
     private void playerNameFieldMouseClicked(java.awt.event.MouseEvent evt){                                                 
         playerNameField.setText("");
     }                                            
 
-    private void playerNameFieldActionPerformed(java.awt.event.ActionEvent evt)                                                
+    public void playerNameFieldActionPerformed(java.awt.event.ActionEvent evt)                                                
     {                                                    
-        playerName = playerNameField.getText();                                           
-        BoggleFrame game = new BoggleFrame(board, playerName);
-        game.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        game.setVisible(true); 
-    }                                             
+        startGame(); 
+    }  
+    public void startGame(){
+      playerName = playerNameField.getText();
+      BoggleFrame game = new BoggleFrame(board, playerName);                                             
+      game.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+      game.setVisible(true); 
+    }                                           
 
     // Variables declaration - do not modify  
     private String playerName;  

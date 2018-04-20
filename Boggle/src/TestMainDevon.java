@@ -4,11 +4,9 @@ import javax.swing.JFrame;
 
 public class TestMainDevon{
    public static void main(String args[]){
-      File dict = new File("yawl.txt");
-      Board board = new Board(dict);
-      
+      Board board = new Board();
       IntroPage greeting = new IntroPage(board);
-      greeting.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      greeting.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       greeting.setVisible(true);
    }
 }

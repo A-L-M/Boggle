@@ -2,34 +2,39 @@ import java.io.File;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.*;
 
 public class BoggleFrame extends javax.swing.JFrame
 {
     private Board board;
     
-    public BoggleFrame(Board board, String name) //pass it our Char array and the players name
-    {
-         
+    public BoggleFrame(Board board, String name){ //pass it our Char array and the players name
         this.board = board;
         this.name = name;
         initComponents(); // builds the gui, see below   
    }
     
-   DefaultListModel dlm = new DefaultListModel();
    private void wordButtonActionPerformed(java.awt.event.ActionEvent evt){   // What happens when you press the word button                                            
-      dlm.addElement(inputField.getText());
-      wordList.setModel(dlm);
-      inputField.setText("");       
+      wordPress();       
    }
+   
    private void inputFieldMouseClicked(java.awt.event.MouseEvent evt){ //Clears inputField when you click it                                         
-        inputField.setText("");
-      }
+      inputField.setText("");
+   }
+   
    private void inputFieldActionPerformed(java.awt.event.ActionEvent evt){ //What happens when you press enter(WordButton)                                                   
-         dlm.addElement(inputField.getText());
-         wordList.setModel(dlm);
-         inputField.setText("");
-      }                                   
+      wordPress();
+   }
+         
+   private void wordPress(){
+      int i = 0;
+      wordList.setModel(dlm);
+      dlm.add(i, inputField.getText());
+      myList.add(i, inputField.getText());
+      inputField.setText("");
+      i++;
+   }                             
    
    public class event implements ActionListener { // what happens when you press the start button
       public void actionPerformed(ActionEvent e) {
@@ -53,7 +58,7 @@ public class BoggleFrame extends javax.swing.JFrame
         diceLabel16.setText("" + board.getNode(3, 3));
         
         //builds our timer
-        int count = 180;   
+        int count = 5;   
         timerLabel.setText("3:00");
         TimeClass tc = new TimeClass(count);
         timer = new Timer(1000, tc);
@@ -112,8 +117,8 @@ public class BoggleFrame extends javax.swing.JFrame
          }
                else{
                   timer.stop();
-                  ScorePage score = new ScorePage("devon");
-                  score.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                  ScorePage score = new ScorePage(name);
+                  score.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                   score.setVisible(true);
                }
       }
@@ -134,7 +139,7 @@ public class BoggleFrame extends javax.swing.JFrame
         titleLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        wordList = new javax.swing.JList<>();
+        wordList = new javax.swing.JList<String>();
         welcomeLabel = new javax.swing.JLabel();
         diceLabel1 = new javax.swing.JLabel();
         diceLabel2 = new javax.swing.JLabel();
@@ -169,7 +174,7 @@ public class BoggleFrame extends javax.swing.JFrame
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         wordButton.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         wordButton.setText("WORD!");
@@ -188,12 +193,6 @@ public class BoggleFrame extends javax.swing.JFrame
         titleLabel.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         titleLabel.setText("BOGGLE");
 
-        wordList.setModel(new javax.swing.AbstractListModel<String>()
-            {
-                String[] string = { };
-                public int getSize() { return string.length; }
-                public String getElementAt(int i) { return string[i]; }
-            });
             jScrollPane1.setViewportView(wordList);
 
             welcomeLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
@@ -432,9 +431,10 @@ public class BoggleFrame extends javax.swing.JFrame
     Timer timer;
     private int i;
     String name;
-    int count = 180;
+    int count;
     event e = new event();
-    String[] wordsFound = new String[30]; 
+    DefaultListModel dlm = new DefaultListModel();
+    ArrayList<String> myList = new ArrayList<String>(50);
     private javax.swing.JButton startButton;
     private java.awt.Button button1;
     private javax.swing.JLabel diceLabel1;
