@@ -26,19 +26,16 @@ public class BoggleFrame extends javax.swing.JFrame {
    }
          
    private void wordPress(){
-      int i = 0;
       wordList.setModel(dlm);
       solver.scoreWord(inputField.getText());
       if(solver.scoreWord(inputField.getText()) != 0){
-         dlm.add(i, inputField.getText());
-         myList.add(i, inputField.getText());
+         dlm.addElement(inputField.getText());
          score += solver.scoreWord(inputField.getText());
          inputField.setText("");
       }
       else{
          inputField.setText("Not A valid word");   
       }
-      i++;
    }                             
    
    public class event implements ActionListener { // what happens when you press the start button
