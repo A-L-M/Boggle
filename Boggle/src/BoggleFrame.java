@@ -123,7 +123,7 @@ public class BoggleFrame extends javax.swing.JFrame {
                else{
                   timer.stop();
                   ScorePage scorePage = new ScorePage(name, score);
-                  scorePage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                  scorePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                   scorePage.setVisible(true);
                }
       }
