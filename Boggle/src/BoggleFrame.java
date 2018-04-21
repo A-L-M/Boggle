@@ -72,7 +72,8 @@ public class BoggleFrame extends javax.swing.JFrame {
    public class event implements ActionListener { // what happens when you press the start button
       public void actionPerformed(ActionEvent e) {
          
-        inputField.setEditable(true); 
+        inputField.setEditable(true);
+        startButton.setEnabled(false); 
         
          
          // Populates our board.
