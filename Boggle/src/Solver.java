@@ -16,8 +16,7 @@
 
 import java.util.ArrayList;
 import java.util.Stack;
-//imports only necessary for main() test method
-import java.io.File;
+import java.io.File;//import only necessary for main() test method
 
 public class Solver {
 
