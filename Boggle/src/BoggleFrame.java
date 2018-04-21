@@ -431,7 +431,7 @@ public class BoggleFrame extends javax.swing.JFrame {
     String name;
     private int count;
     private event e = new event();
-    DefaultListModel dlm = new DefaultListModel();
+    DefaultListModel<String> dlm = new DefaultListModel<String>();
     ArrayList<String> myList = new ArrayList<String>(50);
     private Board board;
     private javax.swing.JButton startButton;
