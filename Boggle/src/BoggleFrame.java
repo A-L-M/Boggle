@@ -1,7 +1,9 @@
 import java.awt.event.ActionEvent;//javafx? //FIXME
 import java.awt.event.ActionListener;//javafx? //FIXME
 import java.util.ArrayList;
-import javax.swing.*;
+import javax.swing.Timer; // do we need util instead?\
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 public class BoggleFrame extends javax.swing.JFrame {
     
@@ -26,13 +28,11 @@ public class BoggleFrame extends javax.swing.JFrame {
    private void wordPress(){
       int i = 0;
       wordList.setModel(dlm);
-      int check = solver.isWord(inputField.getText());
-      System.out.println(check);
-      if(check > 0){
+      solver.scoreWord(inputField.getText());
+      if(solver.scoreWord(inputField.getText()) != 0){
          dlm.add(i, inputField.getText());
          myList.add(i, inputField.getText());
          score += solver.scoreWord(inputField.getText());
-         
          inputField.setText("");
       }
       else{
@@ -45,6 +45,7 @@ public class BoggleFrame extends javax.swing.JFrame {
       public void actionPerformed(ActionEvent e) {
          
         inputField.setEditable(true); 
+        
          
          // Populates our board.
         diceLabel1.setText("" + board.getNode(0, 0));
@@ -124,7 +125,7 @@ public class BoggleFrame extends javax.swing.JFrame {
          }
                else{
                   timer.stop();
-                  ScorePage scorePage = new ScorePage(name);
+                  ScorePage scorePage = new ScorePage(name, score);
                   scorePage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                   scorePage.setVisible(true);
                }
