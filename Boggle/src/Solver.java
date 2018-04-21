@@ -65,13 +65,18 @@ public class Solver {
     }
     
     public double percentOfWords(ArrayList<String> userWordList) {
-        double userWordsFound = userWordList.size();
-        double algoFoundWords = foundWords.size();
-        return (double) ((int) ((userWordsFound / algoFoundWords) * 100));
+        return percentOf(userWordList.size(), foundWords.size());
     }
     
     public double percentOfPointsEarned (double pointsEarned) {
-        return (Math.floor(pointsEarned / scoreWordList(foundWords))) * 100;
+        return percentOf(pointsEarned, scoreWordList(foundWords));
+    }
+
+    private double percentOf(double num, double total) {
+        double result = (num / total) * 1000;
+        result = ((int) result) / 10;
+        result /= 10;
+        return result;
     }
 
     public int scoreWordList(ArrayList<String> foundWords) {
