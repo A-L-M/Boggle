@@ -1,9 +1,8 @@
-import java.io.File;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;//javafx? //FIXME
+import java.awt.event.ActionListener;//javafx? //FIXME
 import java.util.ArrayList;
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 public class BoggleFrame extends javax.swing.JFrame {
     
