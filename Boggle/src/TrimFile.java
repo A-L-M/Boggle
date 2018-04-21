@@ -11,13 +11,12 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 
 public class TrimFile {
 
     //makes copy of a file minus
-    //all lines consisiting of fewer character than minLength
-    public static void trim(String fileName, int minLength) {
+    //all lines consisting of fewer character than minLength
+    private static void trim(String fileName, int minLength) {
         try {
             Scanner read = new Scanner(new File(fileName));
             File newFile = new File(fileName + ".trim");
@@ -28,7 +27,7 @@ public class TrimFile {
                 //upper case 
                 String next = read.nextLine();
                 if (next.length() >= minLength) {
-                    writer.write(next.toString().toUpperCase() + "\n");
+                    writer.write(next.toUpperCase() + "\n");
                 }
                 /* no upper case
                 String next = read.nextLine();
@@ -47,8 +46,7 @@ public class TrimFile {
     }
     public static void main(String[] args) {
         try {
-            TrimFile trim = new TrimFile();
-            trim.trim(args[0], 3);
+            trim(args[0], Integer.parseInt(args[1]));
         }
         catch (Exception e) {
             System.out.println("Please specify valid file path as argument");

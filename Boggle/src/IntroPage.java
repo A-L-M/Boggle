@@ -47,7 +47,7 @@ public class IntroPage extends javax.swing.JFrame{
         rulesTextArea.setText("You have three minutes (shown by the countdown timer)\nto find as many words as they can in the grid \naccording to the following conditions:\n\n- The letters must be adjoining in a chain. Adjacent\n  vertical, horizontal, or diaganol.\n\n- Words must be at least 3 letters long.\n\n- No letter cube may be used more than once in a \n  single word");
         jScrollPane1.setViewportView(rulesTextArea);
 
-        playButton.setText("PLAY");;
+        playButton.setText("PLAY");
         playButton.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -141,7 +141,7 @@ public class IntroPage extends javax.swing.JFrame{
 
     // Variables declaration - do not modify  
     private String playerName;  
-    private Board board;                 
+    private final Board board;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

@@ -12,15 +12,14 @@
  * in the alphabet; null if no child exists mapped to that letter
  *****************************************************************/
 
-import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.File;
 import java.io.IOException;
 
 public class Trie {
-    private Trie[] children = new Trie[26];//one child per alphabet letter
+    private final Trie[] children = new Trie[26];//one child per alphabet letter
     private char letter;
-    public String word = null; //if word = null, no word is stored at that node.
+    private String word = null; //if word = null, no word is stored at that node.
 
     //root node constructor
     public Trie(File file) {
@@ -28,20 +27,19 @@ public class Trie {
     }
 
     //non-root node constructor
-    public Trie(char letter) {
+    private Trie(char letter) {
         this.letter = letter;
     }
 
     //constructor helper
-    private Trie gen(Trie root, File file) {
-        Trie current = root;
+    private void gen(Trie root, File file) {
+        Trie current;
         try {
             Scanner input = new Scanner(file);
             while (input.hasNextLine()) {
                 current = root;
                 String word = input.nextLine();
                 for(char el : word.toCharArray()) {
-                    int index = (int) el - 65;//translate A-Z char -> 0-25 int value
                     if (current.hasChild(el)) {
                         current = current.getChild(el);
                     }
@@ -53,13 +51,12 @@ public class Trie {
         catch (IOException e) {
             throw new IllegalArgumentException("File not found, please verify path");
         }
-        return root;
     }
 
     //adds a child mapped to the given char key,
     //warning: overwrites current child in index if called
-    //with a paramater that maps to a non-null entry in children
-    public Trie addChild(char key) {
+    //with a parameter that maps to a non-null entry in children
+    private Trie addChild(char key) {
         int index = (int) key - 65; //translate A-Z char -> 0-25 int value
         Trie child = new Trie(key);
         children[index] = child;
@@ -78,20 +75,9 @@ public class Trie {
         return word;
     }
 
-    //returns list of children nodes that exist for this
-    public ArrayList<Trie> getChildrenList() {
-        ArrayList<Trie> childList = new ArrayList<>();
-        for (int i = 0; i < 26; i++) {
-            if (children[i] != null) {
-                childList.add(children[i]);
-            }
-        }
-        return childList;
-    }
-
     public boolean hasChild(char letter) {
         int index = (int) letter - 65;
-        return children[index] == null ? false : true;
+        return children[index] != null;
     }
 
     @Override

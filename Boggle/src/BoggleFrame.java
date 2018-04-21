@@ -1,8 +1,7 @@
 import java.awt.event.ActionEvent;//javafx? //FIXME
 import java.awt.event.ActionListener;//javafx? //FIXME
 import java.util.ArrayList;
-import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class BoggleFrame extends javax.swing.JFrame {
     
@@ -102,7 +101,7 @@ public class BoggleFrame extends javax.swing.JFrame {
                else if(counter == 60){
                   timerLabel.setText("1:00");
                }
-               else if(counter < 60){
+               else if(counter < 60){//FIXME condition is always true
                   seconds = counter;
                   if(seconds < 10){
                      timerLabel.setText("0" + seconds);
@@ -136,7 +135,7 @@ public class BoggleFrame extends javax.swing.JFrame {
         titleLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        wordList = new javax.swing.JList<String>();
+        wordList = new javax.swing.JList<>();
         welcomeLabel = new javax.swing.JLabel();
         diceLabel1 = new javax.swing.JLabel();
         diceLabel2 = new javax.swing.JLabel();
@@ -430,8 +429,8 @@ public class BoggleFrame extends javax.swing.JFrame {
     String name;
     private int count;
     private event e = new event();
-    DefaultListModel<String> dlm = new DefaultListModel<String>();
-    ArrayList<String> myList = new ArrayList<String>(50);
+    DefaultListModel<String> dlm = new DefaultListModel<>();
+    ArrayList<String> myList = new ArrayList<>(50); //FIXME is this needed?
     private Board board;
     private javax.swing.JButton startButton;
     private java.awt.Button button1;

@@ -4,10 +4,7 @@
  * Represents a Boggle board
  *******************************/
 
-import java.util.Hashtable;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 class Board {
     //each element of dice represents one of 16 dice included in Boggle
@@ -44,7 +41,6 @@ class Board {
 
     //constructor helper methods
     private void setRow(int row, boolean[] diceUsed) {
-        Random rand = new Random();
         int slotsSet = 0;
 
         while (slotsSet < 4) { //keep trying until 4 unique dice have been used
@@ -57,7 +53,7 @@ class Board {
         }
     } 
 
-    public void setNeighbors(Node node) {
+    private void setNeighbors(Node node) {
         int row = node.getRow();
         int col = node.getCol();
         for (int i = row - 1; i <= row + 1; i++) {
