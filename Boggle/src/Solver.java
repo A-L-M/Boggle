@@ -78,6 +78,9 @@ public class Solver {
         //first element on stack should always be a Tuple corresponding to
         //the boardnode passed as an argument, and the trie's root-node's child
         //corresponding to that board-node's letter value
+        if (root.getChild(node.value) == null) {//covers rare case that no prefix in our tree begins with node.value
+            return; 
+        }
         Tuple current = path.push(new Tuple(node, root.getChild(node.value)));
         //when the stack pops off the final element, we know we have explored
         //all possible paths as far as necessary
@@ -148,8 +151,7 @@ public class Solver {
 
     //example usage & algorithm demonsration
     public static void main (String[] args) {
-            //File file = new File(args[0]);
-            File file = new File("yawl.txt");
+            File file = new File(args[0]);
             Board board = new Board();
 
             for (Node[] row : board.getBoard()) {
@@ -169,11 +171,9 @@ public class Solver {
                 }
             }
 
-            /*
             for (String el : solver.foundWords) {
                 System.out.println(el);
             }
-            */
 
             System.out.println("Total score: " + solver.scoreWordList(solver.foundWords));
     }
