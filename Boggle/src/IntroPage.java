@@ -3,8 +3,9 @@ import javax.swing.JFrame;
 public class IntroPage extends javax.swing.JFrame{    
     
     
-    public IntroPage(Board board){ //Constructs our intro page
+    public IntroPage(Board board, Solver solver){ //Constructs our intro page
       this.board = board;
+      this.solver = solver;
       initComponents();
     }
 
@@ -134,12 +135,13 @@ public class IntroPage extends javax.swing.JFrame{
     }  
     public void startGame(){ //Starts the boggleFrame page
       playerName = playerNameField.getText();
-      BoggleFrame game = new BoggleFrame(board, playerName);                                             
+      BoggleFrame game = new BoggleFrame(board, playerName, solver);                                             
       game.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       game.setVisible(true); 
     }                                           
 
     // Variables declaration - do not modify  
+    Solver solver;
     private String playerName;  
     private final Board board;
     private javax.swing.JLabel jLabel1;
