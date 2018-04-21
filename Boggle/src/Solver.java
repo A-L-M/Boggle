@@ -23,8 +23,10 @@ public class Solver {
     public final ArrayList<String> foundWords = new ArrayList<>();
     //Stack tracks our position in both the board graph, and the trie graph
     private final Stack<Tuple> path = new Stack<>();
+    Trie root;
 
-    public Solver() {
+    public Solver(Trie root) {
+        this.root = root;
     }
 
     //Tuple allows us to simultaneously track our position in the board graph
@@ -73,7 +75,7 @@ public class Solver {
     }
 
     //returns all legal-move valid strings beginning from one starting point
-    public void solve(Node node, Trie root) {
+    public void solve(Node node) {
         Node child;//used to point to the next adjacent node to our current node
 
         //first element on stack should always be a Tuple corresponding to
