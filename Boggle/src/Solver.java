@@ -63,6 +63,16 @@ public class Solver {
 
         return 0;//if the parameter is not in our word-list, no points are awarded
     }
+    
+    public double percentOfWords(ArrayList<String> userWordList) {
+        double userWordsFound = userWordList.size();
+        double algoFoundWords = foundWords.size();
+        return (double) ((int) ((userWordsFound / algoFoundWords) * 100));
+    }
+    
+    public double percentOfPointsEarned (double pointsEarned) {
+        return (Math.floor(pointsEarned / scoreWordList(foundWords))) * 100;
+    }
 
     public int scoreWordList(ArrayList<String> foundWords) {
         int totalScore = 0;

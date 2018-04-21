@@ -19,6 +19,9 @@ public class BoggleFrame extends javax.swing.JFrame {
         }
         initComponents(); // builds the gui, see below   
    }
+   private void stopButtonActionPerformed(java.awt.event.ActionEvent evt){
+      stopGame();
+   }
     
    private void wordButtonActionPerformed(java.awt.event.ActionEvent evt){   // What happens when you press the word button                                            
       wordPress();       
@@ -31,19 +34,40 @@ public class BoggleFrame extends javax.swing.JFrame {
    private void inputFieldMouseClicked(java.awt.event.MouseEvent evt){ //Clears inputField when you click it                                         
       inputField.setText("");
    }
-         
+   private int preventDuplicate(){
+      if(myList.indexOf(inputField.getText()) >= 0){
+         return 0;
+      }
+      else{
+         return 1;
+      }  
+   }      
    private void wordPress(){
       wordList.setModel(dlm);
       int points = solver.scoreWord(inputField.getText().toUpperCase());
-      if(points != 0){
-         dlm.addElement(inputField.getText());
-         score += points;
-         inputField.setText("");
+      int points2 = preventDuplicate();
+      if(points2 != 0){
+         if(points != 0){
+            dlm.addElement(inputField.getText().toUpperCase());
+            score += points;
+            myList.add(inputField.getText().toUpperCase());
+            inputField.setText("");
+         }
+         else{
+            inputField.setText("Not a valid word");   
+         } 
       }
       else{
-         inputField.setText("Not a valid word");   
-      }
-   }                             
+         inputField.setText("Already Entered");
+      }       
+   }  
+   
+   private void stopGame(){
+      timer.stop();
+      ScorePage scorePage = new ScorePage(name, score, solver, myList);
+      scorePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      scorePage.setVisible(true);
+   }                           
    
    public class event implements ActionListener { // what happens when you press the start button
       public void actionPerformed(ActionEvent e) {
@@ -70,7 +94,7 @@ public class BoggleFrame extends javax.swing.JFrame {
         diceLabel16.setText("" + board.getNode(3, 3));
         
         //builds our timer
-        int count = 5;   
+        int count = 180;   
         timerLabel.setText("3:00");
         TimeClass tc = new TimeClass(count);
         timer = new Timer(1000, tc);
@@ -128,10 +152,7 @@ public class BoggleFrame extends javax.swing.JFrame {
               }
          }
                else{
-                  timer.stop();
-                  ScorePage scorePage = new ScorePage(name, score);
-                  scorePage.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                  scorePage.setVisible(true);
+                  stopGame();
                }
       }
    }
@@ -147,6 +168,7 @@ public class BoggleFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         wordButton = new javax.swing.JButton();
         startButton = new javax.swing.JButton();
+        stopButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         titleLabel = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -259,6 +281,14 @@ public class BoggleFrame extends javax.swing.JFrame {
 
             diceLabel16.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
             diceLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+            
+            stopButton.setText("Stop");
+            stopButton.addActionListener(new java.awt.event.ActionListener(){
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                stopButtonActionPerformed(evt);
+            }
+        });
 
             javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
             jPanel2.setLayout(jPanel2Layout);
@@ -350,14 +380,6 @@ public class BoggleFrame extends javax.swing.JFrame {
 
             inputField.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
             inputField.setText("Enter words here");
-            inputField.setEditable(false);
-            inputField.addActionListener(new java.awt.event.ActionListener()
-            {
-                public void actionPerformed(java.awt.event.ActionEvent evt)
-                {
-                  inputFieldActionPerformed(evt);
-                }
-            });
             inputField.addMouseListener(new java.awt.event.MouseAdapter()
             {
                 public void mouseClicked(java.awt.event.MouseEvent evt)
@@ -365,6 +387,15 @@ public class BoggleFrame extends javax.swing.JFrame {
                     inputFieldMouseClicked(evt);
                 }
             });
+            inputField.addActionListener(new java.awt.event.ActionListener()
+            {
+                public void actionPerformed(java.awt.event.ActionEvent evt)
+                {
+                    inputFieldActionPerformed(evt);
+                }
+            });
+
+            stopButton.setText("Stop");
 
             javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
             jPanel1.setLayout(jPanel1Layout);
@@ -385,8 +416,10 @@ public class BoggleFrame extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(timerLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(stopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(0, 10, Short.MAX_VALUE))))
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGap(20, 20, 20)
                             .addComponent(inputField, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -409,6 +442,8 @@ public class BoggleFrame extends javax.swing.JFrame {
                             .addComponent(timerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(33, 33, 33)
                             .addComponent(startButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(stopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -417,14 +452,6 @@ public class BoggleFrame extends javax.swing.JFrame {
                         .addComponent(wordButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addContainerGap(20, Short.MAX_VALUE))
             );
-
-            jMenu1.setText("File");
-            jMenuBar1.add(jMenu1);
-
-            jMenu2.setText("Edit");
-            jMenuBar1.add(jMenu2);
-
-            setJMenuBar(jMenuBar1);
 
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
@@ -436,7 +463,7 @@ public class BoggleFrame extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             );
-            pack();
+        pack();
         }// </editor-fold>  
     
     // Variables declaration 
@@ -448,8 +475,9 @@ public class BoggleFrame extends javax.swing.JFrame {
     private int count;
     private event e = new event();
     DefaultListModel<String> dlm = new DefaultListModel<>();
-    ArrayList<String> myList = new ArrayList<>(50); //FIXME is this needed?
+    ArrayList<String> myList = new ArrayList<>(50);
     private Board board;
+    private javax.swing.JButton stopButton;
     private javax.swing.JButton startButton;
     private java.awt.Button button1;
     private javax.swing.JLabel diceLabel1;
