@@ -16,7 +16,7 @@
 
 import java.util.ArrayList;
 import java.util.Stack;
-//FIXME imports only necessary for main() test method
+//imports only necessary for main() test method
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -46,20 +46,24 @@ public class Solver {
         }
     }
 
-    //returns score value of word based on word-length
+    //returns score value of word based on word-length, 0 if invalid word
     public int scoreWord(String word) {
-        switch (word.length()) {
-            case 3:
-                return 1;
-            case 4: case 5:
-                return 3;
-            case 6:
-                return 5;
-            case 7:
-                return 11;
-            default: //very long words get more points
-                return 18;
+        if (foundWords.indexOf(word) >= 0) {
+            switch (word.length()) {
+                case 3:
+                    return 1;
+                case 4: case 5:
+                    return 3;
+                case 6:
+                    return 5;
+                case 7:
+                    return 11;
+                default: //very long words get more points
+                    return 18;
+            }
         }
+
+        return 0;//if the parameter is not in our word-list, no points are awarded
     }
 
     public int scoreWordList(ArrayList<String> foundWords) {
@@ -163,7 +167,7 @@ public class Solver {
             }
 
             Trie root = new Trie(file);
-            Solver solver = new Solver();//FIXME debugging
+            Solver solver = new Solver();
 
             for (Node[] row : board.getBoard()) {
                 for (Node el : row) {
@@ -174,6 +178,7 @@ public class Solver {
             for (String el : solver.foundWords) {
                 System.out.println(el);
             }
+            System.out.println("size: " + solver.foundWords.size());
 
             System.out.println("Total score: " + solver.scoreWordList(solver.foundWords));
     }
