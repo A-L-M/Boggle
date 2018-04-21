@@ -15,25 +15,36 @@ public class BoggleFrame extends javax.swing.JFrame {
       wordPress();       
    }
    
-   private void inputFieldMouseClicked(java.awt.event.MouseEvent evt){ //Clears inputField when you click it                                         
-      inputField.setText("");
-   }
-   
    private void inputFieldActionPerformed(java.awt.event.ActionEvent evt){ //What happens when you press enter(WordButton)                                                   
       wordPress();
+   }
+   
+   private void inputFieldMouseClicked(java.awt.event.MouseEvent evt){ //Clears inputField when you click it                                         
+      inputField.setText("");
    }
          
    private void wordPress(){
       int i = 0;
       wordList.setModel(dlm);
-      dlm.add(i, inputField.getText());
-      myList.add(i, inputField.getText());
-      inputField.setText("");
+      int check = solver.isWord(inputField.getText());
+      System.out.println(check);
+      if(check > 0){
+         dlm.add(i, inputField.getText());
+         myList.add(i, inputField.getText());
+         score += solver.scoreWord(inputField.getText());
+         
+         inputField.setText("");
+      }
+      else{
+         inputField.setText("Not A valid word");   
+      }
       i++;
    }                             
    
    public class event implements ActionListener { // what happens when you press the start button
       public void actionPerformed(ActionEvent e) {
+         
+        inputField.setEditable(true); 
          
          // Populates our board.
         diceLabel1.setText("" + board.getNode(0, 0));
@@ -113,9 +124,9 @@ public class BoggleFrame extends javax.swing.JFrame {
          }
                else{
                   timer.stop();
-                  ScorePage score = new ScorePage(name);
-                  score.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                  score.setVisible(true);
+                  ScorePage scorePage = new ScorePage(name);
+                  scorePage.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                  scorePage.setVisible(true);
                }
       }
    }
@@ -334,6 +345,7 @@ public class BoggleFrame extends javax.swing.JFrame {
 
             inputField.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
             inputField.setText("Enter words here");
+            inputField.setEditable(false);
             inputField.addActionListener(new java.awt.event.ActionListener()
             {
                 public void actionPerformed(java.awt.event.ActionEvent evt)
@@ -424,6 +436,8 @@ public class BoggleFrame extends javax.swing.JFrame {
         }// </editor-fold>  
     
     // Variables declaration 
+    private int score;
+    Solver solver = new Solver();
     private Timer timer;
     private int i;
     String name;
