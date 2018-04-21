@@ -68,6 +68,10 @@ public class Solver {
         return totalScore;
     }
 
+    public void clearFoundWords() {
+        foundWords.clear();
+    }
+
     //returns all legal-move valid strings beginning from one starting point
     public void solve(Node node, Trie root) {
         Node child;//used to point to the next adjacent node to our current node
