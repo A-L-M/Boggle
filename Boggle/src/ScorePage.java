@@ -5,9 +5,10 @@ import javax.swing.JFrame;
 public class ScorePage extends javax.swing.JFrame
 {
 
-    public ScorePage(String name)
+    public ScorePage(String name, int score)
     { 
         this.name = name;
+        this.score = score;
         initComponents();
     }
 
@@ -33,11 +34,11 @@ public class ScorePage extends javax.swing.JFrame
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         scoreLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         scoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        scoreLabel.setText("Score: ");
+        scoreLabel.setText("Score: " + score);
 
         playButton.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         playButton.setText("Play");
@@ -148,6 +149,7 @@ public class ScorePage extends javax.swing.JFrame
        newGame.setVisible(true); 
     }                                         
     // Variables declaration - do not modify
+    private int score;
     private String name;  
     private Board board;                
     private javax.swing.JMenu jMenu1;
