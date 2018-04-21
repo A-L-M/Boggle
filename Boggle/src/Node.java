@@ -7,11 +7,11 @@
 import java.util.ArrayList;
 
 class Node {
-    public char value;//the char value of this node, i.e. the letter showing
-    private ArrayList<Node> neighbors;//list of adjacent nodes
+    public final char value;//the char value of this node, i.e. the letter showing
+    private final ArrayList<Node> neighbors;//list of adjacent nodes
     //below two fields store node's location on the Board
-    private int row;
-    private int col;
+    private final int row;
+    private final int col;
 
     public Node(char value, int row, int col) {
         this.row = row;

@@ -18,13 +18,12 @@ import java.util.ArrayList;
 import java.util.Stack;
 //imports only necessary for main() test method
 import java.io.File;
-import java.io.FileNotFoundException;
 
 public class Solver {
 
-    public ArrayList<String> foundWords = new ArrayList<>();
+    public final ArrayList<String> foundWords = new ArrayList<>();
     //Stack tracks our position in both the board graph, and the trie graph
-    Stack<Tuple> path = new Stack<>();
+    private final Stack<Tuple> path = new Stack<>();
 
     public Solver() {
     }
@@ -35,14 +34,10 @@ public class Solver {
         private Node node;
         private Trie trie;
         private int index = 0;
-        private int row;
-        private int col;
 
-        public Tuple(Node node, Trie trie) {
+        Tuple(Node node, Trie trie) {
             this.node = node;
             this.trie = trie;
-            this.row = node.getRow();
-            this.col = node.getCol();
         }
     }
 
@@ -80,12 +75,13 @@ public class Solver {
         Node child;//used to point to the next adjacent node to our current node
 
         //first element on stack should always be a Tuple corresponding to
-        //the boardnode passed as an argument, and the trie's root-node's child
+        //the board-node passed as an argument, and the trie's root-node's child
         //corresponding to that board-node's letter value
         if (root.getChild(node.value) == null) {//covers rare case that no prefix in our tree begins with node.value
             return; 
         }
-        Tuple current = path.push(new Tuple(node, root.getChild(node.value)));
+        Tuple current;
+        path.push(new Tuple(node, root.getChild(node.value)));
         //when the stack pops off the final element, we know we have explored
         //all possible paths as far as necessary
         while (!path.isEmpty()) {
@@ -122,7 +118,7 @@ public class Solver {
                 child = current.node.getNeighbor(current.index);
             }
 
-            //if it is, check if that child is already an elemnt of the stack
+            //if it is, check if that child is already an element of the stack
             //in order to prevent infinite loops
             if (!inStack(child)) {
                 //if its not, but the corresponding trie has no children corresponding
@@ -153,7 +149,7 @@ public class Solver {
         return false;
     }
 
-    //example usage & algorithm demonsration
+    //example usage & algorithm demonstration
     public static void main (String[] args) {
             File file = new File(args[0]);
             Board board = new Board();
