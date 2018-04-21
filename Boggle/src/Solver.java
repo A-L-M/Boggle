@@ -140,6 +140,10 @@ public class Solver {
         }
 
     }
+    
+    public int isWord(String string){
+      return foundWords.indexOf(string);
+    }
 
     //returns true if node is already present in the stack
     private boolean inStack (Node node) {
