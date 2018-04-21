@@ -13,7 +13,7 @@ public class ScorePage extends javax.swing.JFrame
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents()
+    private void initComponents() //Generated code for the gui
     {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -33,7 +33,7 @@ public class ScorePage extends javax.swing.JFrame
         jMenu2.setText("Edit");
         jMenuBar1.add(jMenu2);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         scoreLabel.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         scoreLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -133,23 +133,23 @@ public class ScorePage extends javax.swing.JFrame
         pack();
     }// </editor-fold>                        
 
-    private void playButtonActionPerformed(java.awt.event.ActionEvent evt)                                           
-    {                                               
-        name = playerInput.getText();
-        BoggleFrame newGame = new BoggleFrame(board, name);
-        newGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        newGame.setVisible(true); 
+    private void playButtonActionPerformed(java.awt.event.ActionEvent evt){ //What happens you when press Play                                               
+       newGame();
     }                                          
 
-    private void playerInputActionPerformed(java.awt.event.ActionEvent evt)                                            
-    {                                                
-        // TODO add your handling code here:
-    }                                           
-
+    private void playerInputActionPerformed(java.awt.event.ActionEvent evt){ //What happens you press enter                                                
+       newGame();
+    }  
+    public void newGame(){ //Starts a new game
+       name = playerInput.getText();
+       Board board1 = new Board();
+       BoggleFrame newGame = new BoggleFrame(board1, name);
+       newGame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+       newGame.setVisible(true); 
+    }                                         
     // Variables declaration - do not modify
-    File dict = new File("yawl.txt");
-    Board board = new Board(dict);   
-    private String name;                  
+    private String name;  
+    private Board board;                
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
