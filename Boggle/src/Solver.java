@@ -97,7 +97,7 @@ public class Solver {
                     //covers rare case wherein we are at a Trie node
                     //that represents a prefix that contains Q
                     //but leads to a word that does not contain U
-                    current.index++; 
+                    path.pop();//if Q doesn't have a U child, Q path should be terminated
                     continue; //avoid iterating index twice
                 }
             }
@@ -163,7 +163,7 @@ public class Solver {
             }
 
             Trie root = new Trie(file);
-            Solver solver = new Solver();
+            Solver solver = new Solver();//FIXME debugging
 
             for (Node[] row : board.getBoard()) {
                 for (Node el : row) {
