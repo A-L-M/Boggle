@@ -7,9 +7,16 @@ import javax.swing.JFrame;
 
 public class BoggleFrame extends javax.swing.JFrame {
     
-    public BoggleFrame(Board board, String name){ //pass it our Char array and the players name
+    public BoggleFrame(Board board, String name, Solver solver){ //pass it our Char array and the players name
         this.board = board;
         this.name = name;
+        this.solver = solver;
+        solver.clearFoundWords();
+        for(Node[] row: board.getBoard()){
+          for(Node el: row){
+            solver.solve(el);
+          }
+        }
         initComponents(); // builds the gui, see below   
    }
     
@@ -27,14 +34,14 @@ public class BoggleFrame extends javax.swing.JFrame {
          
    private void wordPress(){
       wordList.setModel(dlm);
-      solver.scoreWord(inputField.getText());
-      if(solver.scoreWord(inputField.getText()) != 0){
+      int points = solver.scoreWord(inputField.getText().toUpperCase());
+      if(points != 0){
          dlm.addElement(inputField.getText());
-         score += solver.scoreWord(inputField.getText());
+         score += points;
          inputField.setText("");
       }
       else{
-         inputField.setText("Not A valid word");   
+         inputField.setText("Not a valid word");   
       }
    }                             
    
@@ -63,7 +70,7 @@ public class BoggleFrame extends javax.swing.JFrame {
         diceLabel16.setText("" + board.getNode(3, 3));
         
         //builds our timer
-        int count = 180;   
+        int count = 5;   
         timerLabel.setText("3:00");
         TimeClass tc = new TimeClass(count);
         timer = new Timer(1000, tc);
@@ -429,13 +436,12 @@ public class BoggleFrame extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             );
-
             pack();
         }// </editor-fold>  
     
     // Variables declaration 
+    Solver solver;
     private int score;
-    Solver solver = new Solver();
     private Timer timer;
     private int i;
     String name;

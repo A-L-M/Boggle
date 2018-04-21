@@ -46,6 +46,8 @@ public class Solver {
     public int scoreWord(String word) {
         if (foundWords.indexOf(word) >= 0) {
             switch (word.length()) {
+                case 0: case 1: case 2:
+                    return 0;
                 case 3:
                     return 1;
                 case 4: case 5:
@@ -158,7 +160,7 @@ public class Solver {
     }
 
     //example usage & algorithm demonstration
-    public static void main (String[] args) {
+   /* public static void main (String[] args) {
             File file = new File(args[0]);
             Board board = new Board();
 
@@ -185,5 +187,5 @@ public class Solver {
             System.out.println("size: " + solver.foundWords.size());
 
             System.out.println("Total score: " + solver.scoreWordList(solver.foundWords));
-    }
+    } */
 }
