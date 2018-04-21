@@ -70,8 +70,6 @@ public class Solver {
 
     //returns all legal-move valid strings beginning from one starting point
     public void solve(Node node, Trie root) {
-        foundWords.clear();//if we're solving a new board we'll want to remove the old words
-        
         Node child;//used to point to the next adjacent node to our current node
 
         //first element on stack should always be a Tuple corresponding to
