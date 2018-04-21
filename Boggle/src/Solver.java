@@ -53,9 +53,9 @@ public class Solver {
                 return 1;
             case 4: case 5:
                 return 3;
-            case 7:
+            case 6:
                 return 5;
-            case 8:
+            case 7:
                 return 11;
             default: //very long words get more points
                 return 18;
