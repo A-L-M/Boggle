@@ -5,16 +5,26 @@
  * each node in the trie represents a prefix 
  * present in the word-list
  *
+<<<<<<< HEAD
  * Nodes store a char & a String value that is non-null
+=======
+ * Nodes store a char,a String value that is non-null
+>>>>>>> 58cfb6572160f6aeb7fdd61967192c227ddff4d0
  * if a path beginning from root and terminating on that
  * node would result in a matching word from the word-list,
  * and an array of 26 children, each representing a letter
  * in the alphabet; null if no child exists mapped to that letter
  *****************************************************************/
 
+<<<<<<< HEAD
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+=======
+import java.util.Scanner;
+import java.io.File;
+import java.io.IOException;
+>>>>>>> 58cfb6572160f6aeb7fdd61967192c227ddff4d0
 
 public class Trie {
     private final Trie[] children = new Trie[26];//one child per alphabet letter
@@ -39,6 +49,7 @@ public class Trie {
             while (input.hasNextLine()) {
                 current = root;
                 String word = input.nextLine();
+<<<<<<< HEAD
                 for (char el : word.toCharArray()) {
                     if (current.hasChild(el)) {
                         current = current.getChild(el);
@@ -47,6 +58,18 @@ public class Trie {
                 current.word = word;
             }
         } catch (IOException e) {
+=======
+                for(char el : word.toCharArray()) {
+                    if (current.hasChild(el)) {
+                        current = current.getChild(el);
+                    }
+                    else current = current.addChild(el);
+                }
+                current.word = word;
+            }
+        }
+        catch (IOException e) {
+>>>>>>> 58cfb6572160f6aeb7fdd61967192c227ddff4d0
             throw new IllegalArgumentException("File not found, please verify path");
         }
     }
