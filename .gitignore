@@ -5,6 +5,9 @@
 *.iml
 *.idea
 *.zip
+*.odt
+*.odt*
+*.pdf
 DemoGUI/
 /notes
 /out
