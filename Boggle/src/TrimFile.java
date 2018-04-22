@@ -1,5 +1,5 @@
 /*************************************************
- * Author: Alec Mills
+ * Author: Alec Mills & Devon Lee
  *
  * processes a text file of the form:
  * one word per line
@@ -7,10 +7,11 @@
  * and converts all strings to upper case
  ************************************************/
 
-import java.util.Scanner;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class TrimFile {
 
@@ -20,11 +21,10 @@ public class TrimFile {
         try {
             Scanner read = new Scanner(new File(fileName));
             File newFile = new File(fileName + ".trim");
-            newFile.createNewFile();
             FileWriter writer = new FileWriter(newFile);
 
-            while(read.hasNextLine()) {
-                //upper case 
+            while (read.hasNextLine()) {
+                //upper case
                 String next = read.nextLine();
                 if (next.length() >= minLength) {
                     writer.write(next.toUpperCase() + "\n");
@@ -36,19 +36,19 @@ public class TrimFile {
                 }
                 */
             }
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
-            throw new IllegalArgumentException("please specify file path as argument");
-        }
-        catch (IOException e) {
-            System.out.println("file not found, please correct file path");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("File not found, please correct file path");
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("File not found please correct file path");
         }
     }
+
     public static void main(String[] args) {
         try {
             trim(args[0], Integer.parseInt(args[1]));
-        }
-        catch (Exception e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Please specify valid file path as argument");
         }
     }

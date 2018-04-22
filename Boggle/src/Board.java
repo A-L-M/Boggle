@@ -1,24 +1,23 @@
-/*******************************
- * Author: Alec Mills
+/**********************************
+ * Author: Alec Mills & Devon Lee
  *
  * Represents a Boggle board
- *******************************/
+ *********************************/
 
 import java.util.Random;
 
 class Board {
     //each element of dice represents one of 16 dice included in Boggle
     //each char in String element a face of the die
-    private final String[] dice = {"aaeegn","elrtty","aoottw","abbjoo","ehrtvw",
-            "cimotu","disstty","eiosst","delvry","achops","himnqu","eeinsu",
-            "eeghnw","affkps","hlnnrz","deilrx"};
+    private final String[] dice = new String[]{"aaeegn", "abbjoo", "achops", "affkps", "aoottw",
+            "cimotu", "deilrx", "delvry", "disstty", "eeghnw", "eeinsu", "ehrtvw",
+            "eiosst", "elrtty", "himnqu", "hlnnrz"};
     //represents the physical layout of the boggle board
-    private final Node[][] board;
+    private final Node[][] board = new Node[4][4];
 
     public Board() {
 
         boolean[] diceUsed = new boolean[16];//make sure each 'die' is only used once
-        board = new Node[4][4];
         for (int i = 0; i < board.length; i++) {
             setRow(i, diceUsed);
         }
@@ -51,7 +50,7 @@ class Board {
             }
 
         }
-    } 
+    }
 
     private void setNeighbors(Node node) {
         int row = node.getRow();
@@ -74,7 +73,6 @@ class Board {
         if (!diceUsed[dieToTry]) {
             diceUsed[dieToTry] = true;
             return Character.toUpperCase(dice[dieToTry].charAt(rand.nextInt(6)));
-        }
-        else return Character.MIN_VALUE; //indicated failure to set
+        } else return Character.MIN_VALUE; //indicated failure to set
     }
 }

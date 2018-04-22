@@ -12,45 +12,35 @@
  *   subsequent node must be adjacent to the previous;
  *   up/down,left/right & diagonal are valid directions
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- ************************************************************/ 
+ ************************************************************/
 
 import java.util.ArrayList;
 import java.util.Stack;
-import java.io.File;//import only necessary for main() test method
+//import java.io.File;//import only necessary for main() test method
 
 public class Solver {
 
     public final ArrayList<String> foundWords = new ArrayList<>();
     //Stack tracks our position in both the board graph, and the trie graph
     private final Stack<Tuple> path = new Stack<>();
-    Trie root;
+    private final Trie root;
 
     public Solver(Trie root) {
         this.root = root;
-    }
-
-    //Tuple allows us to simultaneously track our position in the board graph
-    //as well as the trie
-    private class Tuple {
-        private Node node;
-        private Trie trie;
-        private int index = 0;
-
-        Tuple(Node node, Trie trie) {
-            this.node = node;
-            this.trie = trie;
-        }
     }
 
     //returns score value of word based on word-length, 0 if invalid word
     public int scoreWord(String word) {
         if (foundWords.indexOf(word) >= 0) {
             switch (word.length()) {
-                case 0: case 1: case 2:
+                case 0:
+                case 1:
+                case 2:
                     return 0;
                 case 3:
                     return 1;
-                case 4: case 5:
+                case 4:
+                case 5:
                     return 3;
                 case 6:
                     return 5;
@@ -63,12 +53,12 @@ public class Solver {
 
         return 0;//if the parameter is not in our word-list, no points are awarded
     }
-    
+
     public double percentOfWords(ArrayList<String> userWordList) {
         return percentOf(userWordList.size(), foundWords.size());
     }
-    
-    public double percentOfPointsEarned (double pointsEarned) {
+
+    public double percentOfPointsEarned(double pointsEarned) {
         return percentOf(pointsEarned, scoreWordList(foundWords));
     }
 
@@ -81,14 +71,27 @@ public class Solver {
 
     public int scoreWordList(ArrayList<String> foundWords) {
         int totalScore = 0;
-            for(String word : foundWords) {
-                totalScore += scoreWord(word);
-            }
+        for (String word : foundWords) {
+            totalScore += scoreWord(word);
+        }
         return totalScore;
     }
 
     public void clearFoundWords() {
         foundWords.clear();
+    }
+
+    //Tuple allows us to simultaneously track our position in the board graph
+    //as well as the trie
+    private class Tuple {
+        private final Node node;
+        private Trie trie;
+        private int index = 0;
+
+        Tuple(Node node, Trie trie) {
+            this.node = node;
+            this.trie = trie;
+        }
     }
 
     //returns all legal-move valid strings beginning from one starting point
@@ -99,7 +102,7 @@ public class Solver {
         //the board-node passed as an argument, and the trie's root-node's child
         //corresponding to that board-node's letter value
         if (root.getChild(node.value) == null) {//covers rare case that no prefix in our tree begins with node.value
-            return; 
+            return;
         }
         Tuple current;
         path.push(new Tuple(node, root.getChild(node.value)));
@@ -113,8 +116,7 @@ public class Solver {
             if (current.node.value == 'Q' && current.trie.getLetter() != 'U') {
                 if (current.trie.getChild('U') != null) {
                     current.trie = current.trie.getChild('U');
-                }
-                else {
+                } else {
                     //covers rare case wherein we are at a Trie node
                     //that represents a prefix that contains Q
                     //but leads to a word that does not contain U
@@ -122,20 +124,19 @@ public class Solver {
                     continue; //avoid iterating index twice
                 }
             }
-            
+
             String word = current.trie.getWord();
             if (word != null && foundWords.indexOf(word) < 0) {
                 foundWords.add(word);//if not null, we know we have a valid word
             }
             //check if current.index will refer to a valid child of current.node
-            boolean inBounds = current.index >= 0 && 
+            boolean inBounds = current.index >= 0 &&
                     current.index < current.node.allNeighbors().size();
             //if not, we can terminate this search path
             if (!inBounds) {
                 path.pop();
                 continue;
-            }
-            else {
+            } else {
                 child = current.node.getNeighbor(current.index);
             }
 
@@ -161,13 +162,9 @@ public class Solver {
         }
 
     }
-    
-    public int isWord(String string){
-      return foundWords.indexOf(string);
-    }
 
     //returns true if node is already present in the stack
-    private boolean inStack (Node node) {
+    private boolean inStack(Node node) {
         for (Tuple el : path) {
             if (el.node == node) return true;
         }
