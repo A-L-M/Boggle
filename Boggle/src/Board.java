@@ -9,7 +9,7 @@ import java.util.Random;
 class Board {
     //each element of dice represents one of 16 dice included in Boggle
     //each char in String element a face of the die
-    private final String[] dice = new String[]{"aaeegn", "abbjoo", "achops", "affkps", "aoottw",
+    private final String[] dice = new String[]{"aaeegn","abbjoo","achops","affkps","aoottw",
             "cimotu", "deilrx", "delvry", "disstty", "eeghnw", "eeinsu", "ehrtvw",
             "eiosst", "elrtty", "himnqu", "hlnnrz"};
     //represents the physical layout of the boggle board
