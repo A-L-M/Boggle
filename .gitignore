@@ -3,11 +3,14 @@
 .*.swp
 *Test.java
 *.iml
+*.xcf
 *.idea
 *.zip
-*.odt
 *.odt*
 *.pdf
+*.png
+*.jpg
+*.odp*
 DemoGUI/
 /notes
 /out

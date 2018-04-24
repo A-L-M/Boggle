@@ -86,19 +86,19 @@ public class BoggleFrame extends javax.swing.JFrame {
         inputField.setText("");
     }
 
-    private int preventDuplicate() {
-        if (myList.indexOf(inputField.getText()) >= 0) {
-            return 0;
+    //returns true if word is already present in users word-list
+    private boolean preventDuplicate() {
+        if (myList.indexOf(inputField.getText().toUpperCase()) >= 0) {
+            return true;//is present
         } else {
-            return 1;
+            return false;
         }
     }
 
     private void wordPress() {
         wordList.setModel(dlm);
         int points = solver.scoreWord(inputField.getText().toUpperCase());
-        int points2 = preventDuplicate();
-        if (points2 != 0) {
+        if (!preventDuplicate()) {//if not present
             if (points != 0) {
                 dlm.addElement(inputField.getText().toUpperCase());
                 score += points;
