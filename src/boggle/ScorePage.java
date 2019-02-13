@@ -1,11 +1,5 @@
 package boggle;
 
-/**********************************
- * Author: Devon Lee & Alec Mills
- *
- * Handles display and calculation
- * of player-score for Boggle
- **********************************/
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -19,7 +13,13 @@ import javax.swing.JSeparator;
 import java.awt.Font;
 import java.util.ArrayList;
 
-public class ScorePage extends javax.swing.JFrame {
+/**********************************
+ * Author: Devon Lee & Alec Mills
+ *
+ * Handles display and calculation
+ * of player-score for Boggle
+ **********************************/
+class ScorePage extends javax.swing.JFrame {
 
     private final int score;
     // Variables declaration - do not modify
@@ -75,20 +75,12 @@ public class ScorePage extends javax.swing.JFrame {
 
         playButton.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 24)); // NOI18N
         playButton.setText("Play");
-        playButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playButtonActionPerformed();
-            }
-        });
+        playButton.addActionListener(evt -> playButtonActionPerformed());
 
         playerInput.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 24)); // NOI18N
         playerInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         playerInput.setText(name);
-        playerInput.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playerInputActionPerformed();
-            }
-        });
+        playerInput.addActionListener(evt -> playerInputActionPerformed());
 
         wordsList.setLayoutOrientation(javax.swing.JList.VERTICAL);
         jScrollPane1.setViewportView(wordsList);

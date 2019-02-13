@@ -1,10 +1,15 @@
 package boggle;
 
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
 /*****************************************************************
  * Author: Alec Mills
  *
- * Stores a word-list in a trie/prefix-tree 
- * each node in the trie represents a prefix 
+ * Stores a word-list in a trie/prefix-tree
+ * each node in the trie represents a prefix
  * present in the word-list
  *
  * Nodes store a char & a String value that is non-null
@@ -13,11 +18,6 @@ package boggle;
  * and an array of 26 children, each representing a letter
  * in the alphabet; null if no child exists mapped to that letter
  *****************************************************************/
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Scanner;
-
 public class Trie {
     private final Trie[] children = new Trie[26];//one child per alphabet letter
     private char letter;

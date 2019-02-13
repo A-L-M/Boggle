@@ -2,6 +2,8 @@ package boggle;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /****************************************
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  *
  * Implements GUI for Boggle game
  ****************************************/
-public class BoggleFrame extends javax.swing.JFrame {
+class BoggleFrame extends javax.swing.JFrame {
 
     // Variables declaration
     private final Solver solver;
@@ -38,7 +40,6 @@ public class BoggleFrame extends javax.swing.JFrame {
     private JLabel diceLabel8;
     private JLabel diceLabel9;
     private JTextField inputField;
-    private JScrollPane jScrollPane2;
     private JLabel timerLabel;
     private JList<String> wordList;
     public BoggleFrame(Board board, String name, Solver solver) { //pass it our Char array and the players name
@@ -54,7 +55,7 @@ public class BoggleFrame extends javax.swing.JFrame {
         initComponents(); //builds the gui, see below
     }
 
-    private void stopButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void stopButtonActionPerformed() {
         stopGame();
     }
 
@@ -66,17 +67,14 @@ public class BoggleFrame extends javax.swing.JFrame {
         wordPress();
     }
 
-    private void inputFieldMouseClicked(java.awt.event.MouseEvent evt) { //Clears inputField when you click it
+    private void inputFieldMouseClicked() { //Clears inputField when you click it
         inputField.setText("");
     }
 
     //returns true if word is already present in users word-list
     private boolean preventDuplicate() {
-        if (myList.indexOf(inputField.getText().toUpperCase()) >= 0) {
-            return true;//is present
-        } else {
-            return false;
-        }
+        //is present
+        return myList.indexOf(inputField.getText().toUpperCase()) >= 0;
     }
 
     private void wordPress() {
@@ -105,8 +103,6 @@ public class BoggleFrame extends javax.swing.JFrame {
 
     private void initComponents() { // Mostly generated code by NetBeans GUI creator, some edits done to naming, buttons, etc...
         JDesktopPane jDesktopPane1 = new JDesktopPane();
-        JScrollBar jScrollBar1 = new JScrollBar();
-        JEditorPane jEditorPane1 = new JEditorPane();
         JPanel jPanel1 = new JPanel();
         JButton wordButton = new JButton();
         startButton = new JButton();
@@ -135,9 +131,6 @@ public class BoggleFrame extends javax.swing.JFrame {
         diceLabel16 = new JLabel();
         timerLabel = new JLabel();
         inputField = new JTextField();
-        JMenuBar jMenuBar1 = new JMenuBar();
-        JMenu jMenu1 = new JMenu();
-        JMenu jMenu2 = new JMenu();
 
         GroupLayout jDesktopPane1Layout = new GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -154,11 +147,7 @@ public class BoggleFrame extends javax.swing.JFrame {
 
         wordButton.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 18)); // NOI18N
         wordButton.setText("WORD!");
-        wordButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                wordButtonActionPerformed(evt);
-            }
-        });
+        wordButton.addActionListener(this::wordButtonActionPerformed);
 
 
         startButton.setText("Start");
@@ -223,11 +212,7 @@ public class BoggleFrame extends javax.swing.JFrame {
         diceLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         stopButton.setText("Stop");
-        stopButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stopButtonActionPerformed(evt);
-            }
-        });
+        stopButton.addActionListener(evt -> stopButtonActionPerformed());
 
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -321,14 +306,10 @@ public class BoggleFrame extends javax.swing.JFrame {
         inputField.setText("Enter words here");
         inputField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                inputFieldMouseClicked(evt);
+                inputFieldMouseClicked();
             }
         });
-        inputField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputFieldActionPerformed();
-            }
-        });
+        inputField.addActionListener(evt -> inputFieldActionPerformed());
 
         stopButton.setText("Stop");
 
@@ -440,7 +421,7 @@ public class BoggleFrame extends javax.swing.JFrame {
         int minutes;
         int seconds;
 
-        public TimeClass(int counter) {
+        TimeClass(int counter) {
             this.counter = counter;
         }
 

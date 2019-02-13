@@ -9,7 +9,7 @@ import java.awt.Font;
  *
  * Handles display of introduction & rules page for Boggle
  *****************************************************************/
-public class IntroPage extends javax.swing.JFrame {
+class IntroPage extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify
@@ -41,11 +41,7 @@ public class IntroPage extends javax.swing.JFrame {
         playerNameField.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 24)); // NOI18N
         playerNameField.setHorizontalAlignment(JTextField.CENTER);
         playerNameField.setText("Enter your name here.");
-        playerNameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playerNameFieldActionPerformed();
-            }
-        });
+        playerNameField.addActionListener(evt -> playerNameFieldActionPerformed());
         playerNameField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 playerNameFieldMouseClicked();
@@ -65,11 +61,7 @@ public class IntroPage extends javax.swing.JFrame {
         jScrollPane1.setViewportView(rulesTextArea);
 
         playButton.setText("PLAY");
-        playButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playButtonActionPerformed();
-            }
-        });
+        playButton.addActionListener(evt -> playButtonActionPerformed());
 
         rulesLabel.setFont(new java.awt.Font("Tahoma", Font.PLAIN, 18)); // NOI18N
         rulesLabel.setText("Rules:");

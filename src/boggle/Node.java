@@ -1,13 +1,13 @@
 package boggle;
 
-/************************************************
- * Author: Alec Mills & Devon Lee
- *
- * Represents one node on the Boggle board graph
- ************************************************/
 
 import java.util.ArrayList;
 
+/************************************************
+ * Author: Alec Mills
+ *
+ * Represents one node on the Boggle board graph
+ ************************************************/
 class Node {
     public final char value;//the char value of this node, i.e. the letter showing
     private final ArrayList<Node> neighbors;//list of adjacent nodes

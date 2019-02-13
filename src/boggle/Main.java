@@ -1,17 +1,17 @@
 package boggle;
 
+
+import javax.swing.JFrame;
+import java.io.File;
+
 /*****************************************
  * Author: Devon Lee & Alec Mills
  *
  * Entry point and test-client for Boggle
  * game and Boggle-solver
  ****************************************/
-
-import javax.swing.JFrame;
-import java.io.File;
-
-public class Main {
-    public static void main(String args[]) {
+class Main {
+    public static void main(String[] args) {
         try {
             File dict = new File(args[0]);
             Trie root = new Trie(dict);

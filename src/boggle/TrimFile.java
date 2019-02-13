@@ -1,5 +1,12 @@
 package boggle;
 
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
 /*************************************************
  * Author: Alec Mills
  *
@@ -8,14 +15,7 @@ package boggle;
  * and removes all 2-character or less entries
  * and converts all strings to upper case
  ************************************************/
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
-
-public class TrimFile {
+class TrimFile {
 
     //makes copy of a file minus
     //all lines consisting of fewer character than minLength
@@ -31,12 +31,6 @@ public class TrimFile {
                 if (next.length() >= minLength) {
                     writer.write(next.toUpperCase() + "\n");
                 }
-                /* no upper case
-                String next = read.nextLine();
-                if (next.length() >= minLength) {
-                    writer.write(next + "\n");
-                }
-                */
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();

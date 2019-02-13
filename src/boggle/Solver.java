@@ -1,7 +1,12 @@
 package boggle;
 
+
+import java.util.ArrayList;
+import java.util.Stack;
+//import java.io.File;//import only necessary for main() test method
+
 /************************************************************
- * Author: Alec Mills & Devon Lee
+ * Author: Alec Mills
  *
  * Generates ArrayList of Strings that are:
  * A) possible to be formed according to the rules of boggle
@@ -15,12 +20,7 @@ package boggle;
  *   up/down,left/right & diagonal are valid directions
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  ************************************************************/
-
-import java.util.ArrayList;
-import java.util.Stack;
-//import java.io.File;//import only necessary for main() test method
-
-public class Solver {
+class Solver {
 
     public final ArrayList<String> foundWords = new ArrayList<>();
     //Stack tracks our position in both the board graph, and the trie graph
@@ -66,7 +66,7 @@ public class Solver {
 
     private double percentOf(double num, double total) {
         double result = (num / total) * 1000;
-        result = ((int) result) / 10;
+        result = (int) result / 10;
         result /= 10;
         return result;
     }
